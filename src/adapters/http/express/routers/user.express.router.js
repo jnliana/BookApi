@@ -7,7 +7,7 @@ class UserExpressRouter extends BaseExpressRouter {
 	async _register(req, res) {
 		const useCase = new RegisterUseCase(req.body);
 		await useCase.execute();
-		
+
 		return res.status(201).json("Successfully registered. An email for activation has been send!");
 	}
 
@@ -23,8 +23,15 @@ class UserExpressRouter extends BaseExpressRouter {
 	makeExpressRouter() {
 		const router = Router();
 
-		router.post("/register", async (req, res) => await this._register(req, res));
-		router.get("/activate/:activationToken", async (req, res) => await this._activate(req, res));
+		router.post(
+			"/register",
+			async (req, res) => await this._register(req, res)
+		);
+
+		router.get(
+			"/activate/:activationToken",
+			async (req, res) => await this._activate(req, res)
+		);
 
 		return router;
 	}

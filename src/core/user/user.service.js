@@ -37,7 +37,7 @@ class UserService extends BaseService {
 	async create({ firstName, lastName, email, password, role }) {
 		const user = new User(firstName, lastName, email, password, role);
 		this._validator.validate(user);
-		await this._gateway.add(user);
+		await this._gateway.insert(user);
 		return user.id;
 	}
 }

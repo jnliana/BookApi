@@ -16,7 +16,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 		this._read();
 	}
 
-	async add(entity) {
+	async insert(entity) {
 		this._entities.push(entity);
 		await this._write();
 	}

@@ -3,8 +3,8 @@ const BaseExpressRouter = require("./base.express.router");
 
 const BorrowBookUseCase = require("../../../../core/book/use-cases/borrow-book.use-case");
 const AddBookUseCase = require("../../../../core/book/use-cases/add-book.use-case");
-const GetAllBooksUseCase = require("../../../../core/book/use-cases/get-all-books.use-case");
-const GetSpecificBookUseCase = require("../../../../core/book/use-cases/get-specific-book.use-case");
+const ViewAllBooksUseCase = require("../../../../core/book/use-cases/view-all-books.use-case");
+const ViewSpecificBookUseCase = require("../../../../core/book/use-cases/view-specific-book.use-case");
 
 class BookExpressRouter extends BaseExpressRouter {
 	async _addBook(req, res) {
@@ -27,7 +27,7 @@ class BookExpressRouter extends BaseExpressRouter {
 	}
 
 	async _getAll(req, res) {
-		const useCase = new GetAllBooksUseCase();
+		const useCase = new ViewAllBooksUseCase();
 		const books = await useCase.execute();
 
 		return res.status(200).json(books);
@@ -35,7 +35,7 @@ class BookExpressRouter extends BaseExpressRouter {
 
 	async _getSpecific(req, res) {
 		const { bookId } = req.params;
-		const useCase = new GetSpecificBookUseCase({ id: bookId });
+		const useCase = new ViewSpecificBookUseCase({ id: bookId });
 		const book = await useCase.execute();
 
 		if (!book) return res.status(404).json("No book with that id");
@@ -45,19 +45,25 @@ class BookExpressRouter extends BaseExpressRouter {
 	makeExpressRouter() {
 		const router = Router();
 
-		router.get("/", async (req, res) => await this._getAll(req, res));
+		router.get(
+			"/",
+			async (req, res) => await this._getAll(req, res)
+		);
 
-		router.get("/:bookId", async (req, res) => await this._getSpecific(req, res));
+		router.get(
+			"/:bookId",
+			async (req, res) => await this._getSpecific(req, res)
+		);
 
 		router.post(
 			"/",
-			async (req, res, next) => await this.hasAuthTokenGuard(req, res, next),
+			async (req, res, next) => await this._hasAuthTokenGuard(req, res, next),
 			async (req, res) => await this._addBook(req, res)
 		);
 
 		router.patch(
 			"/:bookId/borrow",
-			async (req, res, next) => await this.hasAuthTokenGuard(req, res, next),
+			async (req, res, next) => await this._hasAuthTokenGuard(req, res, next),
 			async (req, res) => await this._borrowBook(req, res)
 		);
 

@@ -14,11 +14,17 @@ class LoginUseCase extends BaseUseCase {
 		const { email, password } = this._request;
 		const user = await this._userService.findByEmail(email);
 
-		if (!user) throw new LoginError(_badCredentialsErrorMessage);
-		if (!user.checkPassword(password)) throw new LoginError(_badCredentialsErrorMessage);
+		await this._validateCredentials(user, password);
 
 		const token = await this._authService.makeAuthToken(user);
 		return { token, userId: user.id };
+	}
+
+	async _validateCredentials(user, password) {
+		if (!user)
+			throw new LoginError(_badCredentialsErrorMessage);
+		if (!user.checkPassword(password))
+			throw new LoginError(_badCredentialsErrorMessage);
 	}
 }
 

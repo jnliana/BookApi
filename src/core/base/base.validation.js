@@ -2,7 +2,7 @@ const NotOverridenError = require("../error/not-overriden.error");
 const ValidationError = require("../error/validation.error");
 
 class BaseValidation {
-	_DEFAULT_ATTRIBUTE_NAME = "Value;"
+	_DEFAULT_ATTRIBUTE_NAME = "Value"
 	_value;
 	_options;
 

@@ -1,7 +1,6 @@
 const Entity = require("../base/base.entity");
 const { hash, compareHash } = require("../utility/hash");
 const token = require("../utility/token");
-const UserRoles = require("./user.roles");
 
 class User extends Entity {
 	firstName;

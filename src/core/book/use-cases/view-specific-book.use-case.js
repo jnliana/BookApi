@@ -1,7 +1,7 @@
 const BaseUseCase = require("../../base/base.use-case");
 const BookService = require("../book.service");
 
-class GetSpecificBookUseCase extends BaseUseCase {
+class ViewSpecificBookUseCase extends BaseUseCase {
 	_bookService = BookService;
 	
 	async execute() {
@@ -9,4 +9,4 @@ class GetSpecificBookUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = GetSpecificBookUseCase;
+module.exports = ViewSpecificBookUseCase;

@@ -1,3 +1,1 @@
-* Rename Dbal to Gateway
-* Add .env to configuration build up
-* 
+* Add initialization of json files if none exist during start up

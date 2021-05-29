@@ -5,7 +5,7 @@ class BaseExpressRouter {
 		throw new NotOverridenError();
 	}
 
-	async hasAuthTokenGuard(req, res, next) {
+	async _hasAuthTokenGuard(req, res, next) {
 		const authToken = this._getAuthTokenFromRequest(req);
 		if (!authToken) return res.status(401).json("No auth token found in the Authorization header.");
 		else next();

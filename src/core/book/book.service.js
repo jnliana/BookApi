@@ -7,7 +7,7 @@ class BookService extends BaseService {
 	async create({ title, publisher, author, releaseYear }) {
 		const book = new Book(title, publisher, author, releaseYear);
 		this._validator.validate(book);
-		await this._gateway.add(book);
+		await this._gateway.insert(book);
 		return book.id;
 	}
 }
