@@ -8,6 +8,8 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	_entities;
 
 	constructor (file) {
+		super();
+
 		file = this._makeFileAbsolute(file)
 		this._file = path.normalize(file);
 		this._checkFileAccess();
@@ -83,7 +85,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	}
 
 	_checkFileIsNotDirectory() {
-		const fileIsDirectory = fs.statSync().isDirectory();
+		const fileIsDirectory = fs.statSync(this._file).isDirectory();
 		if (fileIsDirectory) {
 			throw new JsonGatewayError("Provied file is actually a directory!");
 		}

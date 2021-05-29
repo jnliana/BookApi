@@ -18,7 +18,7 @@ class LoginUseCase extends BaseUseCase {
 		if (!user.checkPassword(password)) throw new LoginError(_badCredentialsErrorMessage);
 
 		const token = await this._authService.makeAuthToken(user);
-		return token;
+		return { token, userId: user.id };
 	}
 }
 

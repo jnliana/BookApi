@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const MailStrategy = require("../../core/mail/mail.strategy");
+const MailStrategy = require("../../../core/mail/mail.strategy");
 
 class NodemailerMailStrategy extends MailStrategy {
 	_service;
@@ -10,6 +10,8 @@ class NodemailerMailStrategy extends MailStrategy {
 	_password;
 	
 	constructor({ service, smtpHost, smtpPort, email, password }) {
+		super();
+		
 		this._service = service;
 		this._smtpHost = smtpHost;
 		this._smtpPort = smtpPort;

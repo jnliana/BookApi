@@ -1,6 +1,9 @@
-const NodemailerMailStrategy = require("../../adapters/mail-strategy/nodemailer.mail-strategy");
+const NodemailerMailStrategy = require("../../adapters/mail-strategy/nodemailer/nodemailer.mail-strategy");
+const BaseError = require("../base/base.error");
 const config = require("../config");
 const MailSendParameter = require("./mail.send-parameter");
+
+class MailError extends BaseError { }
 
 class MailService {
 	_mailStrategy;
@@ -11,7 +14,13 @@ class MailService {
 
 	async send(to, subject, content) {
 		const sendParamater = new MailSendParameter(to, subject, content, "No plain text for ya, sunhine.");
-		return await this._mailStrategy.send(sendParamater);
+		try {
+			await this._mailStrategy.send(sendParamater);
+			return;
+		} catch (e) {
+			console.error(e);
+			throw new MailError("Failed to send mail.");
+		}
 	}
 }
 

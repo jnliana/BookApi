@@ -4,8 +4,11 @@ const UserGateway = require("./user.gateway");
 const User = require("./user.entity");
 const { hash } = require("../utility/hash");
 const token = require("../utility/token");
+const MailService = require("../mail/mail.service");
 
 class UserService extends BaseService {
+	_mailService = MailService;
+	
 	async findByEmail(email) {
 		return await this._gateway.findByEmail(email);
 	}
@@ -40,12 +43,11 @@ class UserService extends BaseService {
 	async create({ firstName, lastName, email, password, role }) {
 		const user = new User(firstName, lastName, email, password, role);
 		this._validator.validate(user);
-		this.issueActivation(user);
 		await this._gateway.add(user);
 		return user.id;
 	}
 
-	async updateById(id, { firstName, lastName, email, password, role, activated, activation }) {
+	async updateById(id, { firstName, lastName, email, password, role, activation }) {
 		const user = await this._gateway.findById(id);
 		if (!user) return null;
 
@@ -54,7 +56,6 @@ class UserService extends BaseService {
 		user.email = email;
 		user.passwordHash = hash(password);
 		user.role = role;
-		user.activated = activated;
 		user.activation = activation;
 		user.modifiedAt = new Date();
 
@@ -62,7 +63,7 @@ class UserService extends BaseService {
 		await this._gateway.save(user);
 	}
 
-	async patchById(id, { firstName, lastName, email, password, role, activated, activation }) {
+	async patchById(id, { firstName, lastName, email, password, role, activation }) {
 		const user = await this._gateway.findById(id);
 		if (!user) return null;
 
@@ -71,7 +72,6 @@ class UserService extends BaseService {
 		if (email !== undefined) user.email = email;
 		if (password !== undefined) user.passwordHash = hash(password);
 		if (role !== undefined) user.role = role;
-		if (activated !== undefined) user.activated = activated;
 		if (activation !== undefined) user.activation = activation;
 		user.modifiedAt = new Date();
 

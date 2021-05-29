@@ -1,5 +1,5 @@
 module.exports = {
-	ADMIN,
-	LIBRARIAN,
-	READER
+	READER: 0,
+	LIBRARIAN: 1,
+	ADMIN: 2
 };

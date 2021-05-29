@@ -4,7 +4,7 @@ const AuthStrategy = require("../../../core/auth/auth.strategy");
 class JwtAuthStrategy extends AuthStrategy {
 	async makeAuthToken(payload) {
 		return new Promise((resolve, reject) => {
-			jwt.sign(payload, this._secret, (err, token) => {
+			jwt.sign(JSON.parse(JSON.stringify(payload)), this._secret, (err, token) => {
 				if (err) return reject(err);
 				else return resolve(token);
 			});
