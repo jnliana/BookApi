@@ -1,0 +1,83 @@
+const BaseService = require("../base/base.service");
+const UserValidator = require("./user.validator");
+const UserDbal = require("./user.dbal");
+const User = require("./user.entity");
+const { hash } = require("../utility/hash");
+const token = require("../utility/token");
+
+class UserService extends BaseService {
+	async findByEmail(email) {
+		return await this._dbal.findByEmail(email);
+	}
+
+	async findByActivationToken(activationToken) {
+		return await this._dbal.findByActivationToken(activationToken);
+	}
+
+	async issueActivation(user) {
+		user.activation = {
+			token: token(),
+			issuedAt: new Date(),
+			completedAt: null,
+			completed: false
+		};
+
+		await this._sendActivationMail(user);
+	}
+
+	async _sendActivationMail(user) {
+		const subject = "Activate your account";
+		const htmlContent = 
+		`
+			<h1>Hello, ${user.firstName} ${user.lastName}</h1>
+			<p>In order to use this app, you need to activate your account.</p>
+			<p>You can use this code to activate your account: ${user.activation.token}{</p>
+		`;
+		
+		await this._mailService.send(user.email, subject, htmlContent);
+	}
+
+	async create({ firstName, lastName, email, password, role }) {
+		const user = new User(firstName, lastName, email, password, role);
+		this._validator.validate(user);
+		this.issueActivation(user);
+		await this._dbal.add(user);
+		return user.id;
+	}
+
+	async updateById(id, { firstName, lastName, email, password, role, activated, activation }) {
+		const user = await this._dbal.findById(id);
+		if (!user) return null;
+
+		user.firstName = firstName;
+		user.lastName = lastName;
+		user.email = email;
+		user.passwordHash = hash(password);
+		user.role = role;
+		user.activated = activated;
+		user.activation = activation;
+		user.modifiedAt = new Date();
+
+		this._validator.validate(user);
+		await this._dbal.save(user);
+	}
+
+	async patchById(id, { firstName, lastName, email, password, role, activated, activation }) {
+		const user = await this._dbal.findById(id);
+		if (!user) return null;
+
+		if (firstName !== undefined) user.firstName = firstName;
+		if (lastName !== undefined) user.lastName = lastName;
+		if (email !== undefined) user.email = email;
+		if (password !== undefined) user.passwordHash = hash(password);
+		if (role !== undefined) user.role = role;
+		if (activated !== undefined) user.activated = activated;
+		if (activation !== undefined) user.activation = activation;
+		user.modifiedAt = new Date();
+
+		this._validator.validate(user);
+		await this._dbal.save(user);
+	}
+}
+
+module.exports = Object.freeze(new UserService(UserDbal, UserValidator));
