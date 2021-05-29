@@ -1,6 +1,6 @@
 const NotOverridenError = require("../error/not-overriden.error");
 
-class DbalStrategy {
+class GatewayStrategy {
 	async add(entity) {
 		throw new NotOverridenError();
 	}
@@ -21,9 +21,9 @@ class DbalStrategy {
 		throw new NotOverridenError();
 	}
 
-	_transfromToEntity(dbalRepresentation) {
+	_transfromToEntity(GatewayRepresentation) {
 		throw new NotOverridenError();
 	}
 }
 
-module.exports = DbalStrategy;
+module.exports = GatewayStrategy;

@@ -1,17 +1,17 @@
 const BaseService = require("../base/base.service");
 const UserValidator = require("./user.validator");
-const UserDbal = require("./user.dbal");
+const UserGateway = require("./user.gateway");
 const User = require("./user.entity");
 const { hash } = require("../utility/hash");
 const token = require("../utility/token");
 
 class UserService extends BaseService {
 	async findByEmail(email) {
-		return await this._dbal.findByEmail(email);
+		return await this._gateway.findByEmail(email);
 	}
 
 	async findByActivationToken(activationToken) {
-		return await this._dbal.findByActivationToken(activationToken);
+		return await this._gateway.findByActivationToken(activationToken);
 	}
 
 	async issueActivation(user) {
@@ -41,12 +41,12 @@ class UserService extends BaseService {
 		const user = new User(firstName, lastName, email, password, role);
 		this._validator.validate(user);
 		this.issueActivation(user);
-		await this._dbal.add(user);
+		await this._gateway.add(user);
 		return user.id;
 	}
 
 	async updateById(id, { firstName, lastName, email, password, role, activated, activation }) {
-		const user = await this._dbal.findById(id);
+		const user = await this._gateway.findById(id);
 		if (!user) return null;
 
 		user.firstName = firstName;
@@ -59,11 +59,11 @@ class UserService extends BaseService {
 		user.modifiedAt = new Date();
 
 		this._validator.validate(user);
-		await this._dbal.save(user);
+		await this._gateway.save(user);
 	}
 
 	async patchById(id, { firstName, lastName, email, password, role, activated, activation }) {
-		const user = await this._dbal.findById(id);
+		const user = await this._gateway.findById(id);
 		if (!user) return null;
 
 		if (firstName !== undefined) user.firstName = firstName;
@@ -76,8 +76,8 @@ class UserService extends BaseService {
 		user.modifiedAt = new Date();
 
 		this._validator.validate(user);
-		await this._dbal.save(user);
+		await this._gateway.save(user);
 	}
 }
 
-module.exports = Object.freeze(new UserService(UserDbal, UserValidator));
+module.exports = Object.freeze(new UserService(UserGateway, UserValidator));

@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const DbalStrategy = require("../../../core/dbal/dbal.strategy");
-const JsonDbalError = require('./json.dbal-error');
+const GatewayStrategy = require("../../../core/gateway/gateway.strategy");
+const JsonGatewayError = require('./json.gateway-error');
 
-class JsonDbalStrategy extends DbalStrategy {
+class JsonGatewayStrategy extends GatewayStrategy {
 	_file;
 	_entities;
 
@@ -32,7 +32,7 @@ class JsonDbalStrategy extends DbalStrategy {
 	async save(entity) {
 		const indexOfEntity = await this._getIndexOfEntityById(entity.id);
 		const entityNotFound = typeof indexOfEntity !== "number"
-		if (entityNotFound) throw new JsonDbalError("Entity cannot be saved, it doesnt exist.");
+		if (entityNotFound) throw new JsonGatewayError("Entity cannot be saved, it doesnt exist.");
 
 		this._entities[indexOfEntity] = entity;
 		await this._write();
@@ -41,7 +41,7 @@ class JsonDbalStrategy extends DbalStrategy {
 	async removeById(id) {
 		const indexOfEntity = await this._getIndexOfEntityById(id);
 		const entityNotFound = typeof indexOfEntity !== "number"
-		if (entityNotFound) throw new JsonDbalError("Entity cannot be deleted, it doesnt exist.");
+		if (entityNotFound) throw new JsonGatewayError("Entity cannot be deleted, it doesnt exist.");
 
 		this._entities.splice(indexOfEntity, 1);
 		await this._write();
@@ -85,7 +85,7 @@ class JsonDbalStrategy extends DbalStrategy {
 	_checkFileIsNotDirectory() {
 		const fileIsDirectory = fs.statSync().isDirectory();
 		if (fileIsDirectory) {
-			throw new JsonDbalError("Provied file is actually a directory!");
+			throw new JsonGatewayError("Provied file is actually a directory!");
 		}
 	}
 
@@ -93,16 +93,16 @@ class JsonDbalStrategy extends DbalStrategy {
 		try {
 			fs.accessSync(this._file);
 		} catch (e) {
-			throw new JsonDbalError("Not allowed no access the file.");
+			throw new JsonGatewayError("Not allowed no access the file.");
 		}
 	}
 
 	_checkFileExists() {
 		const fileDoeNotExist = fs.existsSync(this._file) === false;
 		if (fileDoeNotExist) {
-			throw new JsonDbalError("JSON file for data storage does not exist: " + this._file);
+			throw new JsonGatewayError("JSON file for data storage does not exist: " + this._file);
 		}
 	}
 }
 
-module.exports = JsonDbalStrategy;
+module.exports = JsonGatewayStrategy;

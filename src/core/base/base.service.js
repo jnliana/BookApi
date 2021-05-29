@@ -1,11 +1,11 @@
 const NotOverridenError = require("../error/not-overriden.error");
 
 class BaseService {
-	_dbal;
+	_gateway;
 	_validator;
 
-	constructor (dbal, validator) {
-		this._dbal = dbal;
+	constructor (gateway, validator) {
+		this._gateway = gateway;
 		this._validator = validator;
 	}
 
@@ -14,11 +14,11 @@ class BaseService {
 	}
 
 	async findById(id) {
-		return await this._dbal.findById(id);
+		return await this._gateway.findById(id);
 	}
 
 	async findAll() {
-		return await this._dbal.findAll();
+		return await this._gateway.findAll();
 	}
 
 	async updateById(id, updatedEntity) {
@@ -30,7 +30,7 @@ class BaseService {
 	}
 
 	async removeById(id) {
-		return await this._dbal.removeById(id);
+		return await this._gateway.removeById(id);
 	}
 }
 

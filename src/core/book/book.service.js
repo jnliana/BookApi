@@ -1,5 +1,5 @@
 const BaseService = require('../base/base.service');
-const BookDbal = require("./book.dbal");
+const BookGateway = require("./book.gateway");
 const Book = require('./book.entity');
 const BookValidator = require("./book.validator");
 
@@ -7,12 +7,12 @@ class BookService extends BaseService {
 	async create({ title, publisher, author, releaseYear }) {
 		const book = new Book(title, publisher, author, releaseYear);
 		this._validator.validate(book);
-		await this._dbal.add(book);
+		await this._gateway.add(book);
 		return book.id;
 	}
 
 	async updateById(id, { title, publisher, author, releaseYear }) {
-		const book = await this._dbal.findById(id);
+		const book = await this._gateway.findById(id);
 		if (!book) return null;
 
 		book.title = title;
@@ -22,11 +22,11 @@ class BookService extends BaseService {
 		book.modifiedAt = new Date();
 
 		this._validator.validate(book);
-		await this._dbal.save(book);
+		await this._gateway.save(book);
 	}
 
 	async patchById(id, { title, publisher, author, releaseYear }) {
-		const book = await this._dbal.findById(id);
+		const book = await this._gateway.findById(id);
 		if (!book) return null;
 
 		if (title !== undefined) book.title = title;
@@ -36,8 +36,8 @@ class BookService extends BaseService {
 		book.modifiedAt = new Date();
 
 		this._validator.validate(book);
-		await this._dbal.save(book);
+		await this._gateway.save(book);
 	}
 }
 
-module.exports = Object.freeze(new BookService(BookDbal, BookValidator));
+module.exports = Object.freeze(new BookService(BookGateway, BookValidator));

@@ -1,0 +1,3 @@
+* Rename Dbal to Gateway
+* Add .env to configuration build up
+* 

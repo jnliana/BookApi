@@ -1,5 +1,5 @@
-const JsonDbalStrategy = require("../../adapters/dbal-strategy/json/json.dbal-strategy");
+const JsonGatewayStrategy = require("../../adapters/gateway-strategy/json/json.gateway-strategy");
 
-class BaseDbal extends JsonDbalStrategy { }
+class BaseGateway extends JsonGatewayStrategy { }
 
-module.exports = BaseDbal;
+module.exports = BaseGateway;
