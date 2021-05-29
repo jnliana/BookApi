@@ -1,20 +1,8 @@
-const NotImplementedError = require("../error/not-implemented.error");
+const NotOverridenError = require("../error/not-overriden.error");
 
 class BaseValidator {
-	validateEntity(entity) {
-		throw new NotImplementedError();
-	}
-
-	_validateString(options) {
-		throw new NotImplementedError();
-	}
-
-	_validateNumber(options) {
-		throw new NotImplementedError();
-	}
-
-	_validateDate(options) {
-		throw new NotImplementedError();
+	validate() {
+		throw new NotOverridenError();
 	}
 }
 

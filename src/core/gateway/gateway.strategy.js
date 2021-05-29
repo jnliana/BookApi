@@ -21,7 +21,7 @@ class GatewayStrategy {
 		throw new NotOverridenError();
 	}
 
-	_transfromToEntity(GatewayRepresentation) {
+	_mapToEntity(GatewayRepresentation) {
 		throw new NotOverridenError();
 	}
 }

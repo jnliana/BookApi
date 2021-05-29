@@ -14,11 +14,9 @@ class ReturnBookUseCase extends ActivatedUseCase {
 		const user = this._issuer;
 
 		const book = await this._getBook(bookId, user);
-
-		await this._setBookToBorrowed(book, bookId);
-		await this._removeBookFromUsersBorrowedBooks(user, bookId);
+		await this._returnBook(book, user, bookId);
 	}
-
+	
 	async _getBook(bookId, user) {
 		const book = await this._bookService.findById(bookId);
 		await this._validateBook(book);
@@ -39,15 +37,19 @@ class ReturnBookUseCase extends ActivatedUseCase {
 			throw new ReturnBookError("User has not borrowed the book.");
 	}
 
-	async _setBookToBorrowed(book, bookId) {
-		book.borrowed = false;
-		await this._bookService.updateById(bookId, book);
+	async _returnBook(book, user, bookId) {
+		await this._markBookAsReturned(book);
+		await this._removeBookFromUsersBorrowedBooks(user, bookId);
+	}
+
+	async _markBookAsReturned(book) {
+		book.return();
+		await this._bookService.save(book);
 	}
 
 	async _removeBookFromUsersBorrowedBooks(user, bookId) {
-		const indexOfBook = user.borrowedBooks.indexOf(bookId);
-		user.borrowedBooks.splice(indexOfBook, 1);
-		await this._userService.updateById(user.Id, user);
+		user.returnBook(bookId);
+		await this._userService.save(user);
 	}
 }
 

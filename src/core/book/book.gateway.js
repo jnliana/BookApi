@@ -3,7 +3,7 @@ const BaseGateway = require('../base/base.gateway');
 const Book = require('./book.entity');
 
 class BookGateway extends BaseGateway {
-	_transfromToEntity(gatewayRepresentation) {
+	_mapToEntity(gatewayRepresentation) {
 		const book = new Book();
 
 		book.id = gatewayRepresentation.id;

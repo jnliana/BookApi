@@ -8,12 +8,17 @@ class ActivateUseCase extends BaseUseCase {
 
 	async execute() {
 		const { activationToken } = this._request;
-		const user = await this._userService.findByActivationToken(activationToken);
-		if (!user) throw new Error("No user with that activation token");
-		if (!this._isActivationTokenStillValid(user)) throw new Error("Activation token no longer valid.");
+		const user = await this._getUser(activationToken);
+		await this._completeUsersActivation(user);
+	}
 
-		user.activated = true;
-		user.activation.completedAt = new Date();
+	async _getUser(activationToken) {
+		const user = await this._userService.findByActivationToken(activationToken);
+		if (!user)
+			throw new Error("No user with that activation token");
+		if (!this._isActivationTokenStillValid(user))
+			throw new Error("Activation token no longer valid.");
+		return user;
 	}
 
 	_isActivationTokenStillValid(user) {
@@ -23,6 +28,12 @@ class ActivateUseCase extends BaseUseCase {
 		const validityDuration = hoursToMiliseconds(this._ACTIVATION_TOKEN_VALDITY_DURATION_IN_HOURS);
 
 		return timeSinceIssueing < validityDuration;
+	}
+
+	async _completeUsersActivation(user) {
+		user.activation.completedAt = new Date();
+		user.activation.completed = true;
+		await this._userService.save(user);
 	}
 }
 

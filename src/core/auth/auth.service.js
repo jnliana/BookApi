@@ -19,7 +19,7 @@ class AuthService {
 
 	async getUserFromAuthToken(authToken) {
 		await this._verifyAuthToken(authToken);
-		const { userId } = await this._authStrategy.decode(authToken);
+		const { userId } = await this._authStrategy.decodeAuthToken(authToken);
 		return this._userService.findById(userId);
 	}
 

@@ -15,11 +15,8 @@ class BorrowBookUseCase extends ActivatedUseCase {
 		const user = this._issuer;
 
 		const book = await this._getBook(bookId);
-
 		await this._checkUserCanBorrowAnotherBook(user);
-
-		await this._setBookToBorrowed(book, bookId);
-		await this._addBookToUsersBorrowedBooks(user, bookId);
+		await this._borrowBook(book, bookId, user);
 	}
 
 	async _getBook(bookId) {
@@ -40,14 +37,19 @@ class BorrowBookUseCase extends ActivatedUseCase {
 			throw new BorrowBookError("User cannot borrow any more books.");
 	}
 
-	async _setBookToBorrowed(book, bookId) {
-		book.borrowed = true;
-		await this._bookService.updateById(bookId, book);
+	async _borrowBook(book, bookId, user) {
+		await this._markBookAsBorrowed(book);
+		await this._addBookToUsersBorrowedBooks(user, bookId);
+	}
+
+	async _markBookAsBorrowed(book) {
+		book.borrow();
+		await this._bookService.save(book);
 	}
 
 	async _addBookToUsersBorrowedBooks(user, bookId) {
-		user.borrowedBooks.push(bookId);
-		await this._userService.updateById(user.Id, user);
+		user.borrowBook(bookId);
+		await this._userService.save(user);
 	}
 }
 

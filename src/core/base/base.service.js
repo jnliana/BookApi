@@ -21,16 +21,13 @@ class BaseService {
 		return await this._gateway.findAll();
 	}
 
-	async updateById(id, updatedEntity) {
-		throw new NotOverridenError();
-	}
-
-	async patchById(id, patch) {
-		throw new NotOverridenError();
-	}
-
 	async removeById(id) {
 		return await this._gateway.removeById(id);
+	}
+
+	async save(entity) {
+		entity.modifiedAt = new Date();
+		await this._gateway.save(entity);
 	}
 }
 

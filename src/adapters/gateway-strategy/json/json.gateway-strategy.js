@@ -24,11 +24,11 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	async findById(id) {
 		const entity = this._entities.filter(e => e.id === id)[0] || null;
 		if (entity === null) return null;
-		else return this._transfromToEntity(entity);
+		else return this._mapToEntity(entity);
 	}
 
 	async findAll() {
-		return this._entities.map(e => this._transfromToEntity(e));
+		return this._entities.map(e => this._mapToEntity(e));
 	}
 
 	async save(entity) {
@@ -58,7 +58,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 
 	_makeFileAbsolute(file) {
 		if (path.isAbsolute(file)) return file;
-		else return path.join(require.main.filename, file);
+		else return path.join(process.cwd(), file);
 	}
 
 	_read() {

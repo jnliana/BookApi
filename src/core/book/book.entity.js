@@ -16,6 +16,14 @@ class Book extends Entity {
 		this.releaseYear = releaseYear;
 		this.borrowed = false;
 	}
+
+	borrow() {
+		this.borrowed = true;
+	}
+
+	return() {
+		this.borrowed = false;
+	}
 }
 
 module.exports = Book;
