@@ -17,7 +17,7 @@ Make sure that both the `.json` files for books and users exist and that the pat
 
 If the config is setup just run `npm start`.
 
-Alternatively run `npm run start:dev` to start the application in development mode (it just uses `nodemon` then for auto restart on soure code changes).
+Alternatively run `npm run start:dev` to start the application in development mode (it just uses `nodemon` for auto restart on soure code changes).
 
 ### Structure
 This project tries to follow a clean architecture. At the top level it is split up into `core` and `adapters`, inspired by the hexagon architecture.
@@ -29,7 +29,7 @@ Since this is ultimately a web application, the use cases are made available thr
 Same goes for the database access layer. Albeit that this aspect - namely persistant storage - is actually essential to the application. Therefore the adapter for data storage is more baked into the application and is indeed referred to in `core` as well. BUT, the implementation detail of how data is stored is abstracted into an adapter (here we simply use `.json` files instead of a database!).
 
 ### Tools
-This project uses `express` for all things `http` (plus some cool modules for making `express` better and easier to use like `helmet`), `jsonwebtoken` for authentication and `nodemailer` for sending mails. `bcryptjs` is used for hashing and `uuid` for making ids. Besided that `dotenv` is used for making environment dependend configuratiom just a tad more easy.
+This project uses `express` for all things `http` (plus some cool modules for making `express` better and easier to use like `helmet`), `jsonwebtoken` for authentication and `nodemailer` for sending mails. `bcryptjs` is used for hashing and `uuid` for making ids. Besides that `dotenv` is used for making environment dependend configuratiom just a tad more easy.
 
 ### Other notes
 Note that in order to become a `librarian` or an `admin` you need to manually edit the `users.json` file and change `role`.
