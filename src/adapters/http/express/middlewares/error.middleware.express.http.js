@@ -17,4 +17,4 @@ module.exports = async (error, req, res, next) => {
 	else console.error(error);
 
 	return res.status(status).json({ status, type, message });
-}
+};

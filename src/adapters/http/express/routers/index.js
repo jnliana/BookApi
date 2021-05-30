@@ -6,4 +6,4 @@ module.exports = app => {
 	app.use("/api/books", BookExpressRouter.makeExpressRouter());
 	app.use("/api/auth", AuthExpressRouter.makeExpressRouter());
 	app.use("/api/users", UserExpressRouter.makeExpressRouter());
-}
+};

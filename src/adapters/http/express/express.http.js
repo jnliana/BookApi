@@ -19,7 +19,7 @@ module.exports = () => {
 
 	buildApp(app);
 	startApp(app);
-}
+};
 
 function buildApp(app) {
 	applyPreMiddlewares(app);

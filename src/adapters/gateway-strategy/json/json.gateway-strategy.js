@@ -10,7 +10,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	constructor (file) {
 		super();
 
-		file = this._makeFileAbsolute(file)
+		file = this._makeFileAbsolute(file);
 		this._file = path.normalize(file);
 		this._checkFileAccess();
 		this._read();
@@ -33,7 +33,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 
 	async save(entity) {
 		const indexOfEntity = await this._getIndexOfEntityById(entity.id);
-		const entityNotFound = typeof indexOfEntity !== "number"
+		const entityNotFound = typeof indexOfEntity !== "number";
 		if (entityNotFound) throw new JsonGatewayError("Entity cannot be saved, it doesnt exist.");
 
 		this._entities[indexOfEntity] = entity;
@@ -42,7 +42,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 
 	async removeById(id) {
 		const indexOfEntity = await this._getIndexOfEntityById(id);
-		const entityNotFound = typeof indexOfEntity !== "number"
+		const entityNotFound = typeof indexOfEntity !== "number";
 		if (entityNotFound) throw new JsonGatewayError("Entity cannot be deleted, it doesnt exist.");
 
 		this._entities.splice(indexOfEntity, 1);
@@ -63,7 +63,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 
 	_read() {
 		const fileContent = fs.readFileSync(this._file).toString();
-		const fileIsEmpty = fileContent === ""
+		const fileIsEmpty = fileContent === "";
 		if (fileIsEmpty) this._entities = [];
 		else this._entities = JSON.parse(fileContent);
 	}
