@@ -28,6 +28,10 @@ Since this is ultimately a web application, the use cases are made available thr
 
 Same goes for the database access layer. Albeit that this aspect - namely persistant storage - is actually essential to the application. Therefore the adapter for data storage is more baked into the application and is indeed referred to in `core` as well. BUT, the implementation detail of how data is stored is abstracted into an adapter (here we simply use `.json` files instead of a database!).
 
+A `UseCase` takes a `request` in the constructor and has an asynchronous `execute()` method. This runs the code required to fulfill the use case. The `request` contains parameters or input data guiding the use case. Data access and storage is managed in the `gateway`s.
+
+Beware inheritance and makeshift abstract classes!
+
 ### Tools
 This project uses `express` for all things `http` (plus some cool modules for making `express` better and easier to use like `helmet`), `jsonwebtoken` for authentication and `nodemailer` for sending mails. `bcryptjs` is used for hashing and `uuid` for making ids. Besides that `dotenv` is used for making environment dependend configuratiom just a tad more easy.
 
