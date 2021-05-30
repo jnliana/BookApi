@@ -2,7 +2,7 @@
   "name": "bookapi",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.js",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
@@ -33,6 +33,6 @@
     "start:dev": "nodemon src/main.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "China Cat Sunflower",
   "license": "ISC"
 }

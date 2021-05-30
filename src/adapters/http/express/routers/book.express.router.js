@@ -26,14 +26,14 @@ class BookExpressRouter extends BaseExpressRouter {
 		return res.status(200).json(`Book ${bookId} was succesfully borrowed.`);
 	}
 
-	async _getAll(req, res) {
+	async _viewAll(req, res) {
 		const useCase = new ViewAllBooksUseCase();
 		const books = await useCase.execute();
 
 		return res.status(200).json(books);
 	}
 
-	async _getSpecific(req, res) {
+	async _viewSpecific(req, res) {
 		const { bookId } = req.params;
 		const useCase = new ViewSpecificBookUseCase({ id: bookId });
 		const book = await useCase.execute();
@@ -47,12 +47,12 @@ class BookExpressRouter extends BaseExpressRouter {
 
 		router.get(
 			"/",
-			async (req, res) => await this._getAll(req, res)
+			async (req, res) => await this._viewAll(req, res)
 		);
 
 		router.get(
 			"/:bookId",
-			async (req, res) => await this._getSpecific(req, res)
+			async (req, res) => await this._viewSpecific(req, res)
 		);
 
 		router.post(

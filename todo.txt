@@ -1,0 +1,8 @@
+* Add initialization of json files if none exist during start up
+* Add DTOs and mappers
+* Implement missing use cases
+* Add support for multiple copies of books
+* Improve system for mails (styles, templates, header/footer, better structure/code positioning, ...)
+* Organize imports
+* Generally sort code by the newspaper method
+* Rethink naming conventions for adapters and rename them accordingly
