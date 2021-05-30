@@ -15,19 +15,21 @@ class BorrowBookUseCase extends ActivatedUseCase {
 		const user = this._issuer;
 
 		const book = await this._getBook(bookId);
+
+		await this._checkBookIsNotBorrowed(book);
 		await this._checkUserCanBorrowAnotherBook(user);
+		
 		await this._borrowBook(book, bookId, user);
 	}
 
 	async _getBook(bookId) {
 		const book = await this._bookService.findById(bookId);
-		await this._validateBook(book);
+		if (!book)
+			throw new BorrowBookError("Cannot borrow a book that doesnt exist.");
 		return book;
 	}
 
-	async _validateBook(book) {
-		if (!book)
-			throw new BorrowBookError("Cannot borrow a book that doesnt exist.");
+	async _checkBookIsNotBorrowed(book) {
 		if (book.borrowed)
 			throw new BorrowBookError("Book is already borrowed.");
 	}

@@ -13,20 +13,21 @@ class ReturnBookUseCase extends ActivatedUseCase {
 		const { bookId } = this._request;
 		const user = this._issuer;
 
-		const book = await this._getBook(bookId, user);
+		const book = await this._getBook(bookId);
+		await this._checkBookIsBorrowed(book);
 		await this._checkBookIsBorrowedByUser(user, bookId);
 		await this._returnBook(book, user, bookId);
 	}
 	
-	async _getBook(bookId, user) {
+	async _getBook(bookId) {
 		const book = await this._bookService.findById(bookId);
-		await this._validateBook(book);
+		if (!book)
+			throw new ReturnBookError("Cannot return a book that doesnt exist.");
+
 		return book;
 	}
 
-	async _validateBook(book) {
-		if (!book)
-			throw new ReturnBookError("Cannot return a book that doesnt exist.");
+	async _checkBookIsBorrowed(book) {
 		if (!book.borrowed)
 			throw new ReturnBookError("Book is not borrowed.");
 	}
