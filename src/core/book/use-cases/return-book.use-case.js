@@ -14,13 +14,13 @@ class ReturnBookUseCase extends ActivatedUseCase {
 		const user = this._issuer;
 
 		const book = await this._getBook(bookId, user);
+		await this._checkBookIsBorrowedByUser(user, bookId);
 		await this._returnBook(book, user, bookId);
 	}
 	
 	async _getBook(bookId, user) {
 		const book = await this._bookService.findById(bookId);
 		await this._validateBook(book);
-		await this._checkBookIsBorrowedByUser(user, bookId);
 		return book;
 	}
 

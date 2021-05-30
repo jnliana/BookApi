@@ -9,10 +9,14 @@ class DeleteAccountUseCase extends ActivatedUseCase {
 
 	async _executeActivated() {
 		const user = this._issuer;
+
+		await this._checkUserHasNoBorrowedBooks(user);
+		await this._userService.removeById(user.id);
+	}
+
+	async _checkUserHasNoBorrowedBooks(user) {
 		if (user.hasBorrowedABook())
 			throw new DeleteAccountError("You need to return all books before deleting your account.");
-
-		await this._userService.removeById(user.id);
 	}
 }
 

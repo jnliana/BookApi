@@ -6,8 +6,6 @@ class BookValidator extends BaseValidator {
 		this._validateTitle(book.title);
 		this._validateAuthor(book.author);
 		this._validatePublisher(book.publisher);
-		this._validateReleaseYear(book.releaseYear);
-		this._validateBorrowed(book.borrowed);
 	}
 
 	_validateTitle(title) {
@@ -15,19 +13,11 @@ class BookValidator extends BaseValidator {
 	}
 
 	_validatePublisher(publisher) {
-
+		new StringValidation(publisher, { attributeName: "Publisher", required: true, maxLength: 255, minLength: 1 });
 	}
 
 	_validateAuthor(author) {
-
-	}
-
-	_validateReleaseYear(releaseYear) {
-
-	}
-
-	_validateBorrowed(borrowed) {
-
+		new StringValidation(author, { attributeName: "Author", required: true, maxLength: 255, minLength: 1 });
 	}
 }
 

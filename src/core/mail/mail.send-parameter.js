@@ -3,6 +3,7 @@ class MailSendParameter {
 	subject;
 	htmlContent;
 	plainText;
+	cc;
 
 	constructor(to, subject, htmlContent, plainText, cc = []) {
 		this.to = to;

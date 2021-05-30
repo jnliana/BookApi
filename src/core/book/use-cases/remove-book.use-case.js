@@ -9,12 +9,23 @@ class RemoveBookUseCase extends LibrarianUseCase {
 
 	async _executeAuthorized() {
 		const { bookId } = this._request;
-		const book = await this._bookService.findById(bookId);
 		
-		if (!book) throw new RemoveBookError("Cannot remove a book that doesnt exist.");
-		if (book.borrowed) throw new RemoveBookError("Cannot remove a book that is still borrowed.");
-
+		const book = await this._getBook(bookId);
+		await this._checkBookIsNotBorrowed(book);
 		await this._bookService.removeById(book.id);
+	}
+
+	async _getBook(bookId) {
+		const book = await this._bookService.findById(bookId);
+		if (!book)
+			throw new RemoveBookError("Cannot remove a book that doesnt exist.");
+
+		return book;
+	}
+
+	async _checkBookIsNotBorrowed(book) {
+		if (book.borrowed)
+			throw new RemoveBookError("Cannot remove a book that is still borrowed.");
 	}
 }
 

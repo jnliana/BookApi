@@ -11,7 +11,7 @@ class User extends Entity {
 	activation;
 	borrowedBooks;
 
-	constructor (firstName, lastName, email, password = "", role) {
+	constructor (firstName, lastName, email, password, role) {
 		super();
 
 		this.firstName = firstName;

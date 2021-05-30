@@ -5,13 +5,18 @@ class ChangeProfileUseCase extends ActivatedUseCase {
 	_userService = UserService;
 
 	async _executeActivated() {
-		const { firstName, lastName } = this._request;
 		const user = this._issuer;
 		
-		if (firstName !== undefined) user.firstName = firstName;
-		if (lastName !== undefined) user.lastName = lastName;
-
+		await this._applyChanges(user, this._request);
 		await this._userService.save(user);
+	}
+
+	async _applyChanges(user, { firstName, lastName }) {
+		if (firstName !== undefined)
+			user.firstName = firstName;
+			
+		if (lastName !== undefined)
+			user.lastName = lastName;
 	}
 }
 

@@ -9,24 +9,25 @@ class ChangeBookUseCase extends LibrarianUseCase {
 
 	async _executeAuthorized() {
 		const { bookId } = this._request;
-		const book = await this._bookService.findById(bookId);
 
-		if (!book) throw new ChangeBookError("Cannot change a book that doesnt exist.");
-
-		this._applyChanges(book, this._request);
-
+		const book = await this._getBook(bookId);
+		await this._applyChanges(book, this._request);
 		await this._bookService.save(book);
 	}
 
-	_applyChanges(book, { title, author, publisher, releaseYear }) {
-		if (title !== undefined)
-			book.title = title;
-		if (author !== undefined)
-			book.author = author;
-		if (publisher !== undefined)
-			book.publisher = publisher;
-		if (releaseYear !== undefined)
-			book.releaseYear = releaseYear;
+	async _getBook(bookId) {
+		const book = await this._bookService.findById(bookId);
+
+		if (!book)
+			throw new ChangeBookError("Cannot change a book that doesnt exist.");
+		return book;
+	}
+
+	async _applyChanges(book, { title, author, publisher, releaseYear }) {
+		if (title !== undefined) book.title = title;
+		if (author !== undefined) book.author = author;
+		if (publisher !== undefined) book.publisher = publisher;
+		if (releaseYear !== undefined) book.releaseYear = releaseYear;
 	}
 }
 

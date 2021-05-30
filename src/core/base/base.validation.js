@@ -2,7 +2,8 @@ const NotOverridenError = require("../error/not-overriden.error");
 const ValidationError = require("../error/validation.error");
 
 class BaseValidation {
-	_DEFAULT_ATTRIBUTE_NAME = "Value"
+	_DEFAULT_ATTRIBUTE_NAME = "Value";
+	_type = null;
 	_value;
 	_options;
 
@@ -17,7 +18,24 @@ class BaseValidation {
 	}
 
 	validate() {
-		throw new NotOverridenError();
+		this._validateExistence();
+
+		if (!this._valueExists())
+			return;
+
+		this._validateType();
+
+		if (this._options.requiredValue !== undefined) {
+			this._validateRequiredValue();
+			return;
+		}
+
+		if (Array.isArray(this._options.allowedValues)) {
+			this._validateAllowedValues();
+			return;
+		}
+
+		this._validate();
 	}
 
 	_validateExistence() {
@@ -29,6 +47,28 @@ class BaseValidation {
 
 	_valueExists() {
 		return this._value !== null && this._value !== undefined;
+	}
+
+	_validateType() {
+		if (!this._type)
+			throw new NotOverridenError("Property _type was not overriden.");
+
+		if (typeof this._value !== this._type)
+			throw new ValidationError(`${this._options.attributeName} is not of type ${this._type}.`);
+	}
+
+	_validateRequiredValue() {
+		if (this._value !== this._options.requiredValue)
+			throw new ValidationError(`${this._options.attributeName} does not equal the required value ${this._options.requiredValue}.`)
+	}
+
+	_validateAllowedValues() {
+		if (!this._options.allowedValues.includes(this._value))
+			throw new ValidationError(`${this._options.attributeName} is not one of the allowed values.`);
+	}
+
+	_validate() {
+		throw new NotOverridenError();
 	}
 }
 

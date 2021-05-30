@@ -43,7 +43,7 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	async removeById(id) {
 		const indexOfEntity = await this._getIndexOfEntityById(id);
 		const entityNotFound = typeof indexOfEntity !== "number";
-		if (entityNotFound) throw new JsonGatewayError("Entity cannot be deleted, it doesnt exist.");
+		if (entityNotFound) throw new JsonGatewayError("Entity cannot be removed, it doesnt exist.");
 
 		this._entities.splice(indexOfEntity, 1);
 		await this._write();
@@ -84,10 +84,10 @@ class JsonGatewayStrategy extends GatewayStrategy {
 		this._checkFileIsNotDirectory();
 	}
 
-	_checkFileIsNotDirectory() {
-		const fileIsDirectory = fs.statSync(this._file).isDirectory();
-		if (fileIsDirectory) {
-			throw new JsonGatewayError("Provied file is actually a directory!");
+	_checkFileExists() {
+		const fileDoeNotExist = fs.existsSync(this._file) === false;
+		if (fileDoeNotExist) {
+			throw new JsonGatewayError("JSON file for data storage does not exist: " + this._file);
 		}
 	}
 
@@ -99,10 +99,10 @@ class JsonGatewayStrategy extends GatewayStrategy {
 		}
 	}
 
-	_checkFileExists() {
-		const fileDoeNotExist = fs.existsSync(this._file) === false;
-		if (fileDoeNotExist) {
-			throw new JsonGatewayError("JSON file for data storage does not exist: " + this._file);
+	_checkFileIsNotDirectory() {
+		const fileIsDirectory = fs.statSync(this._file).isDirectory();
+		if (fileIsDirectory) {
+			throw new JsonGatewayError("Provied file is actually a directory!");
 		}
 	}
 }

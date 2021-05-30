@@ -3,23 +3,12 @@ const UserValidator = require("./user.validator");
 const UserGateway = require("./user.gateway");
 const User = require("./user.entity");
 const MailService = require("../mail/mail.service");
-const Config = require("../config");
-const ServiceError = require("../error/service.error");
-
-class UserServiceError extends ServiceError { }
-
 
 class UserService extends BaseService {
-	_MIN_PASSWORD_LENGTH = 7;
 	_mailService = MailService;
 
 	async validatePassword(password) {
-		if (typeof password !== "string")
-			throw new UserServiceError("Password is not a string.");
-		if (!Config.PRODUCTION) return;
-
-		if (password.length < this._MIN_PASSWORD_LENGTH)
-			throw new UserServiceError("Password is too short.");
+		return this._validator.validatePassword(password);
 	}
 
 	async findByEmail(email) {

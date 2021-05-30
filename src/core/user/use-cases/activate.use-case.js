@@ -2,23 +2,32 @@ const BaseUseCase = require("../../base/base.use-case");
 const hoursToMiliseconds = require("../../utility/hours-to-miliseconds");
 const UserService = require("../user.service");
 
+class ActivationError extends UseCaseError { }
+
 class ActivateUseCase extends BaseUseCase {
 	_ACTIVATION_TOKEN_VALDITY_DURATION_IN_HOURS = 48;
 	_userService = UserService;
 
 	async execute() {
 		const { activationToken } = this._request;
+
 		const user = await this._getUser(activationToken);
+		
+		await this._checkTokenIsStillValid(user);
 		await this._completeUsersActivation(user);
 	}
 
 	async _getUser(activationToken) {
 		const user = await this._userService.findByActivationToken(activationToken);
 		if (!user)
-			throw new Error("No user with that activation token");
-		if (!this._isActivationTokenStillValid(user))
-			throw new Error("Activation token no longer valid.");
+			throw new ActivationError("No user with that activation token");
+	
 		return user;
+	}
+
+	async _checkTokenIsStillValid(user) {
+		if (!this._isActivationTokenStillValid(user))
+			throw new ActivationError("Activation token no longer valid.");
 	}
 
 	_isActivationTokenStillValid(user) {

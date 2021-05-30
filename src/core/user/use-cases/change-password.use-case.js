@@ -11,11 +11,22 @@ class ChangePasswordUseCase extends ActivatedUseCase {
 		const { currentPassword, newPassword } = this._request;
 		const user = this._issuer;
 
+		await this._validateCurrentPassword(user, currentPassword);
+		await this._validateNewPassword(newPassword);
+
+		await this._setNewPassword(user, newPassword);
+	}
+
+	async _validateCurrentPassword(user, currentPassword) {
 		if (!user.checkPassword(currentPassword))
 			throw new ChangePasswordError("Given current password is not correct.");
+	}
 
+	async _validateNewPassword(newPassword) {
 		await this._userService.validatePassword(newPassword);
+	}
 
+	async _setNewPassword(user, newPassword) {
 		user.setPassword(newPassword);
 		await this._userService.save(user);
 	}

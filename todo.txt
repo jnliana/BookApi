@@ -9,3 +9,7 @@
 * Improve entity creation mechanism to allow for genuinely creating new entities and also generating an entity object from existing data
 * Implement missing validation rules
 * Refactor password validation
+* Normalize and improve error messages
+* Normalize and improve http responses
+* Add a flexible logging system
+* Seperate UserService from AuthService

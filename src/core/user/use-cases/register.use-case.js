@@ -13,22 +13,31 @@ class RegisterUseCase extends BaseUseCase {
 	async execute() {
 		const { email, password } = this._request;
 
-		await this._validateEmail(email);
+		await this._checkEmailIsUnique(email);
 		await this._userService.validatePassword(password);
 
-		const userId = await this._userService.create( {...this._request, role: UserRoles.READER });
-		const user = await this._userService.findById(userId);
+		const user = await this._makeUser();
 
-		if (Config.PRODUCTION) await this._userService.issueActivation(user);
-		else {
-			user.activation.completed = true;
-			await this._userService.save(user);
-		}
+		if (Config.PRODUCTION)
+			await this._userService.issueActivation(user);
+		else
+			await this._DEV_ONLY_activateUserRightNow(user);
 	}
 
-	async _validateEmail(email) {
+	async _checkEmailIsUnique(email) {
 		if (await this._userService.findByEmail(email))
 			throw new RegisterError("Email already taken");
+	}
+
+	async _makeUser() {
+		const userId = await this._userService.create({ ...this._request, role: UserRoles.READER });
+		const user = await this._userService.findById(userId);
+		return user;
+	}
+
+	async _DEV_ONLY_activateUserRightNow(user) {
+		user.activation.completed = true;
+		await this._userService.save(user);
 	}
 }
 

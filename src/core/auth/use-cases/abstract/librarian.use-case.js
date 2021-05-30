@@ -5,7 +5,8 @@ const AuthError = require("../../auth.error");
 
 class LibrarianUseCase extends AuthorizedUseCase {
 	async _isAuthorizedGuard() {
-		if (this._issuer.role === UserRoles.READER) throw new AuthError("User is not a librarian.");
+		if (![UserRoles.ADMIN, UserRoles.LIBRARIAN].includes(this._issuer.role))
+			throw new AuthError("User is not a librarian.");
 	}
 
 	async _executeAuthorized() {
