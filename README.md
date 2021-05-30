@@ -1,5 +1,5 @@
 # Study application for improving skills and understanding in writing clean code
-## Generic Book Api
+## Book Api
 ### Basic idea
 This application is a tool for digitally managing and making use of a library. 
 As a `librarian` you can add, change and remove books.
@@ -9,7 +9,7 @@ As a noramal user (`reader`) you can borrow and return books.
 Just run `npm install`.
 
 ### Build
-It's just JavaScript for Node, no need to build anything!
+It's just NodeJs, no need to build anything!
 
 ### Start
 Create a local `.env` file and adjust it if need be by taking a look at the supplied `example.env` file. Or just copy the contents and be done with it :)
@@ -24,7 +24,7 @@ This project tries to follow a clean architecture. At the top level it is split 
 `core` contains, well, the core functionality of the app. `adapters` are like plug-in aspects of the app, supposed to be interchangeable. Stuff in `adapters` should depend on stuff in `core`. Through dependency injection some of the stuff in `adapters` goes into `core` though.
 
 Within `core` the entities and the operations with/on them are defined, i.e. the use cases. Those are defined through various `UseCase` classes.
-Since this is ultimately a web application, the use cases are made available through a web framework, namely `express`. This is implemented as an `adapter`. The advantage here is that the core app is not actually reliant on it being a web application, it could also be an application for the command line if another `adapter` is written, or something else entirely. So all the `http` stuff that makes a web framework is treated as nothing more and an I/O device within this project. 
+Since this is ultimately a web application, the use cases are made available through a web framework, namely `express`. This is implemented as an `adapter`. The advantage here is that the core app is not actually reliant on it being a web application, it could also be an application for the command line if another `adapter` is written, or something else entirely. So all the `http` stuff that makes a web framework is treated as nothing more than an I/O device within this project. 
 
 Same goes for the database access layer. Albeit that this aspect - namely persistant storage - is actually essential to the application. Therefore the adapter for data storage is more baked into the application and is indeed referred to in `core` as well. BUT, the implementation detail of how data is stored is abstracted into an adapter (here we simply use `.json` files instead of a database!).
 

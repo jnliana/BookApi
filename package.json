@@ -26,13 +26,11 @@
     "@types/jsonwebtoken": "^8.5.1",
     "@types/nodemailer": "^6.4.2",
     "@types/uuid": "^8.3.0",
-    "jshint": "^2.12.0",
     "nodemon": "^2.0.7"
   },
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
-    "hint": "jshint src",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "China Cat Sunflower",

@@ -14,7 +14,7 @@ class RegisterUseCase extends BaseUseCase {
 		const { email, password } = this._request;
 
 		await this._validateEmail(email);
-		await this._validatePassword(password);
+		await this._userService.validatePassword(password);
 
 		const userId = await this._userService.create( {...this._request, role: UserRoles.READER });
 		const user = await this._userService.findById(userId);
@@ -29,14 +29,6 @@ class RegisterUseCase extends BaseUseCase {
 	async _validateEmail(email) {
 		if (await this._userService.findByEmail(email))
 			throw new RegisterError("Email already taken");
-	}
-
-	async _validatePassword(password) {
-		if (typeof password !== "string")
-			throw new RegisterError("No password of type string.");
-
-		if (password.length < this._MIN_PW_LENGTH)
-			throw new RegisterError("Password is too short.");
 	}
 }
 

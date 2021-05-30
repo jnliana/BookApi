@@ -5,7 +5,8 @@ class ViewSpecificBookUseCase extends BaseUseCase {
 	_bookService = BookService;
 	
 	async execute() {
-		return await this._bookService.findById(this._request.id);
+		const { bookId } = this._request
+		return await this._bookService.findById(bookId);
 	}
 }
 

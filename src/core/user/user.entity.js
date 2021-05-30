@@ -60,6 +60,10 @@ class User extends Entity {
 		const index = this.borrowedBooks.indexOf(bookId);
 		if (index >= 0) this.borrowedBooks.splice(index, 1);
 	}
+
+	hasBorrowedABook() {
+		return this.borrowedBooks.length > 0;
+	}
 }
 
 module.exports = User;
