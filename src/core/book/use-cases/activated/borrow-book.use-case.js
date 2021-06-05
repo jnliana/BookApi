@@ -1,7 +1,7 @@
-const ActivatedUseCase = require("../../use-case/activated.use-case");
-const UseCaseError = require("../../use-case/use-case.error");
-const UserService = require("../../user/user.service");
-const BookService = require("../book.service");
+const ActivatedUseCase = require("../../../use-case/activated.use-case");
+const UseCaseError = require("../../../use-case/use-case.error");
+const UserService = require("../../../user/user.service");
+const BookService = require("../../book.service");
 
 class BorrowBookError extends UseCaseError { }
 

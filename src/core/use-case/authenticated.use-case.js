@@ -22,12 +22,20 @@ class AuthenticatedUseCase extends BaseUseCase {
 	}
 
 	async _setIssuer() {
+		const userId = await this._getUserFromToken();
+		this._issuer = await this._userService.findById(userId);
+	}
+
+	async _getUserFromToken() {
+		let userId;
+
 		try {
-			const userId = await this._authService.getUserIdFromAuthToken(this._authToken);
-			this._issuer = await this._userService.findById(userId);
-		} catch (e) {
-			this._issuer = null;
+			userId = await this._authService.getUserIdFromAuthToken(this._authToken);
+		} catch {
+			throw new AuthError("Invalid auth token.");
 		}
+		
+		return userId;
 	}
 
 	async _isAuthenticatedGuard() {
