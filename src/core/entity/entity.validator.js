@@ -1,9 +1,9 @@
 const NotOverridenError = require("../error/not-overriden.error");
 
-class BaseValidator {
-	validate() {
+class EntityValidator {
+	validate(entity) {
 		throw new NotOverridenError();
 	}
 }
 
-module.exports = BaseValidator;
+module.exports = EntityValidator;

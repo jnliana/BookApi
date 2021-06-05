@@ -1,9 +1,13 @@
-const BaseValidation = require("../base/base.validation");
-const ValidationError = require("../error/validation.error");
+const Types = require("../utility/types");
+const BaseValidation = require("./base.validation");
+const ValidationError = require("./validation.error");
 
 class StringValidation extends BaseValidation {
 	_EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-	_type = "string";
+
+	_type() {
+		return Types.STRING;
+	}
 
 	_validate() {
 		if (this._options.maxLength) this._validateMaxLength();

@@ -1,7 +1,10 @@
-const BaseValidation = require("../base/base.validation");
+const Types = require("../utility/types");
+const BaseValidation = require("./base.validation");
 
 class BooleanValidation extends BaseValidation {
-	_type = "boolean";
+	_type() {
+		return Types.BOOLEAN;
+	} 
 
 	_validate() { }
 }

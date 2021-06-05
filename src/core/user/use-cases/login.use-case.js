@@ -1,7 +1,7 @@
-const BaseUseCase = require("../../base/base.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const UserService = require("../../user/user.service");
-const AuthService = require("../auth.service");
+const BaseUseCase = require("../../use-case/base.use-case");
+const UseCaseError = require("../../use-case/use-case.error");
+const AuthService = require("../../auth/auth.service");
+const UserService = require("../user.service");
 
 class LoginError extends UseCaseError { }
 

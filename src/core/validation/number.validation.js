@@ -1,8 +1,11 @@
-const BaseValidation = require("../base/base.validation");
-const ValidationError = require("../error/validation.error");
+const BaseValidation = require("./base.validation");
+const ValidationError = require("./validation.error");
+const Types = require("../utility/types");
 
 class NumberValidation extends BaseValidation {
-	_type = "number";
+	_type() {
+		return Types.NUMBER;
+	}
 
 	_validate() {
 		if (this._options.minimum !== undefined)

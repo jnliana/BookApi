@@ -1,5 +1,5 @@
-const AuthError = require("../../auth.error");
-const NotOverridenError = require("../../../error/not-overriden.error");
+const AuthError = require("../auth/auth.error");
+const NotOverridenError = require("../error/not-overriden.error");
 const AuthenticatedUseCase = require("./authenticated.use-case");
 
 class ActivatedUseCase extends AuthenticatedUseCase {

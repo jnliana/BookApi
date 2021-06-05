@@ -1,4 +1,4 @@
-const BaseUseCase = require("../../base/base.use-case");
+const BaseUseCase = require("../../use-case/base.use-case");
 const BookService = require("../book.service");
 
 class ViewSpecificBookUseCase extends BaseUseCase {

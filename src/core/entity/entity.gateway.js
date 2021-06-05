@@ -1,5 +1,5 @@
 const JsonGatewayStrategy = require("../../adapters/gateway-strategy/json/json.gateway-strategy");
 
-class BaseGateway extends JsonGatewayStrategy { }
+class EntityGateway extends JsonGatewayStrategy { }
 
-module.exports = BaseGateway;
+module.exports = EntityGateway;

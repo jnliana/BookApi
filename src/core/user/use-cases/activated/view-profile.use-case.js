@@ -1,4 +1,4 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
+const ActivatedUseCase = require("../../../use-case/activated.use-case");
 
 class ViewProfileUseCase extends ActivatedUseCase {
 	async _executeActivated() {

@@ -1,11 +1,13 @@
-const AuthService = require("../../auth.service");
-const BaseUseCase = require("../../../base/base.use-case");
-const NotOverridenError = require("../../../error/not-overriden.error");
-const AuthError = require("../../auth.error");
+const AuthService = require("../auth/auth.service");
+const AuthError = require("../auth/auth.error");
+const NotOverridenError = require("../error/not-overriden.error");
+const BaseUseCase = require("./base.use-case");
+const UserService = require("../user/user.service");
 
 class AuthenticatedUseCase extends BaseUseCase {
-	_authToken;
 	_authService = AuthService;
+	_userService = UserService;
+	_authToken;
 	_issuer;
 
 	constructor (request, authToken) {
@@ -21,7 +23,8 @@ class AuthenticatedUseCase extends BaseUseCase {
 
 	async _setIssuer() {
 		try {
-			this._issuer = await this._authService.getUserFromAuthToken(this._authToken);
+			const userId = await this._authService.getUserIdFromAuthToken(this._authToken);
+			this._issuer = await this._userService.findById(userId);
 		} catch (e) {
 			this._issuer = null;
 		}

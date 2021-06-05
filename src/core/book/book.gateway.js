@@ -1,8 +1,8 @@
+const EntityGateway = require('../entity/entity.gateway');
 const Config = require('../config');
-const BaseGateway = require('../base/base.gateway');
 const Book = require('./book.entity');
 
-class BookGateway extends BaseGateway {
+class BookGateway extends EntityGateway {
 	_mapToEntity(gatewayRepresentation) {
 		const book = new Book();
 

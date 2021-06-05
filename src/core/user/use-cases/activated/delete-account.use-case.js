@@ -1,6 +1,6 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
-const UserService = require("../user.service");
-const UseCaseError = require("../../error/use-case.error");
+const ActivatedUseCase = require("../../../use-case/activated.use-case");
+const UseCaseError = require("../../../use-case/use-case.error");
+const UserService = require("../../user.service");
 
 class DeleteAccountError extends UseCaseError { }
 

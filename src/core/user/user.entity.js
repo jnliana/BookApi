@@ -1,4 +1,4 @@
-const Entity = require("../base/base.entity");
+const Entity = require("../entity/base.entity");
 const { hash, compareHash } = require("../utility/hash");
 const token = require("../utility/token");
 
@@ -11,7 +11,8 @@ class User extends Entity {
 	activation;
 	borrowedBooks;
 
-	constructor (firstName, lastName, email, password, role) {
+	// the password is initialized here so we can blindly call the hash function when a UserEntity is created
+	constructor (firstName, lastName, email, password = "", role) {
 		super();
 
 		this.firstName = firstName;

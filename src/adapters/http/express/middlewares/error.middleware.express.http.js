@@ -1,6 +1,6 @@
 const AuthError = require("../../../../core/auth/auth.error");
-const UseCaseError = require("../../../../core/error/use-case.error");
-const ValidationError = require("../../../../core/error/validation.error");
+const UseCaseError = require("../../../../core/use-case/use-case.error");
+const ValidationError = require("../../../../core/validation/validation.error");
 
 module.exports = async (error, req, res, next) => {
 	let status = 500;

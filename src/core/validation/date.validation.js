@@ -1,15 +1,25 @@
-const BaseValidation = require("../base/base.validation");
-const ValidationError = require("../error/validation.error");
+const Types = require("../utility/types");
+const BaseValidation = require("./base.validation");
+const ValidationError = require("./validation.error");
 
 class DateValidation extends BaseValidation {
-	_type = "date";
-
+	_type() {
+		return Types.OBJECT;
+	}
+ 
 	_validate() {
+		this._validateInstance();
+
 		if (this._options.notEarlier)
 			this._validateNotEarlier();
 
 		if (this._options.notLater)
 			this._validateNotEarlier();
+	}
+
+	_validateInstance() {
+		if ((this._value instanceof Date) === false)
+			throw new ValidationError(`${this._options.attributeName} is not an instance of Date.`);
 	}
 
 	_validateNotEarlier() {

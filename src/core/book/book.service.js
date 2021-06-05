@@ -1,9 +1,9 @@
-const BaseService = require('../base/base.service');
+const EntityService = require('../entity/entity.service');
 const BookGateway = require("./book.gateway");
 const Book = require('./book.entity');
 const BookValidator = require("./book.validator");
 
-class BookService extends BaseService {
+class BookService extends EntityService {
 	async create({ title, publisher, author, releaseYear }) {
 		const book = new Book(title, publisher, author, releaseYear);
 		this._validator.validate(book);

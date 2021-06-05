@@ -1,7 +1,7 @@
-const BaseUseCase = require("../../base/base.use-case");
+const BaseUseCase = require("../../use-case/base.use-case");
 const UserService = require("../user.service");
 const UserRoles = require("../user.roles");
-const UseCaseError = require("../../error/use-case.error");
+const UseCaseError = require("../../use-case/use-case.error");
 const Config = require("../../config");
 
 class RegisterError extends UseCaseError { }

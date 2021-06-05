@@ -1,7 +1,7 @@
-const BaseValidator = require("../base/base.validator");
+const EntityValidator = require("../entity/entity.validator");
 const StringValidation = require("../validation/string.validation");
 
-class UserValidator extends BaseValidator {
+class UserValidator extends EntityValidator {
 	validate(user) {
 		this._validateEmail(user.email);
 		this._validateFirstName(user.firstName);

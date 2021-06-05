@@ -1,14 +1,10 @@
-const UserService = require("../user/user.service");
 const AuthTokenPayload = require("./auth.token-payload");
-
 const JwtAuthStrategy = require("../../adapters/auth-strategy/jwt/jwt.auth-strategy");
 
 class AuthService {
-	_userService;
 	_authStrategy;
 
-	constructor (userService, authStrategy) {
-		this._userService = userService;
+	constructor (authStrategy) {
 		this._authStrategy = authStrategy;
 	}
 
@@ -17,10 +13,10 @@ class AuthService {
 		return await this._authStrategy.makeAuthToken(payload);
 	}
 
-	async getUserFromAuthToken(authToken) {
+	async getUserIdFromAuthToken(authToken) {
 		await this._verifyAuthToken(authToken);
 		const { userId } = await this._authStrategy.decodeAuthToken(authToken);
-		return this._userService.findById(userId);
+		return userId;
 	}
 
 	async _verifyAuthToken(authToken) {
@@ -29,8 +25,5 @@ class AuthService {
 }
 
 module.exports = Object.freeze(
-	new AuthService(
-		UserService,
-		Object.freeze(new JwtAuthStrategy())
-	)
+	new AuthService(Object.freeze(new JwtAuthStrategy()))
 );

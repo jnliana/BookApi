@@ -1,14 +1,14 @@
-const BaseService = require("../base/base.service");
+const EntityService = require("../entity/entity.service");
 const UserValidator = require("./user.validator");
 const UserGateway = require("./user.gateway");
 const User = require("./user.entity");
 const MailService = require("../mail/mail.service");
 
-class UserService extends BaseService {
+class UserService extends EntityService {
 	_mailService = MailService;
 
 	async validatePassword(password) {
-		return this._validator.validatePassword(password);
+		this._validator.validatePassword(password);
 	}
 
 	async findByEmail(email) {

@@ -1,8 +1,8 @@
 const Config = require('../config');
 const User = require("./user.entity");
-const JsonGatewayStrategy = require("../../adapters/gateway-strategy/json/json.gateway-strategy");
+const EntityGateway = require("../entity/entity.gateway");
 
-class UserGateway extends JsonGatewayStrategy {
+class UserGateway extends EntityGateway {
 	async findByEmail(email) {
 		const user = this._entities.filter(user => user.email === email)[0] || null;
 		if (user === null) return null;

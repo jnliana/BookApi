@@ -1,5 +1,5 @@
-const LibrarianUseCase = require("../../auth/use-cases/abstract/librarian.use-case");
-const BookService = require("../book.service");
+const LibrarianUseCase = require("../../../use-case/librarian.use-case");
+const BookService = require("../../book.service");
 
 class AddBookUseCase extends LibrarianUseCase {
 	_bookService = BookService;

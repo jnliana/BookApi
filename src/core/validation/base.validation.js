@@ -1,9 +1,8 @@
 const NotOverridenError = require("../error/not-overriden.error");
-const ValidationError = require("../error/validation.error");
+const ValidationError = require("./validation.error");
 
 class BaseValidation {
 	_DEFAULT_ATTRIBUTE_NAME = "Value";
-	_type = null;
 	_value;
 	_options;
 
@@ -15,6 +14,10 @@ class BaseValidation {
 		this._options.required = this._options.required === true;
 
 		this.validate();
+	}
+
+	_type() {
+		throw new NotOverridenError();
 	}
 
 	validate() {
@@ -50,11 +53,8 @@ class BaseValidation {
 	}
 
 	_validateType() {
-		if (!this._type)
-			throw new NotOverridenError("Property _type was not overriden.");
-
-		if (typeof this._value !== this._type)
-			throw new ValidationError(`${this._options.attributeName} is not of type ${this._type}.`);
+		if (typeof this._value !== this._type())
+			throw new ValidationError(`${this._options.attributeName} is not of type ${this._type()}.`);
 	}
 
 	_validateRequiredValue() {

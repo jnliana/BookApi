@@ -1,6 +1,6 @@
-const LibrarianUseCase = require("../../auth/use-cases/abstract/librarian.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const BookService = require("../book.service");
+const LibrarianUseCase = require("../../../use-case/librarian.use-case");
+const UseCaseError = require("../../../use-case/use-case.error");
+const BookService = require("../../book.service");
 
 class ChangeBookError extends UseCaseError { }
 

@@ -1,4 +1,4 @@
-const Entity = require("../base/base.entity");
+const Entity = require("../entity/base.entity");
 
 class Book extends Entity {
 	title;

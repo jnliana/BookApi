@@ -1,4 +1,4 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
+const ActivatedUseCase = require("../../use-case/variants/activated.use-case");
 const UserService = require("../user.service");
 
 class ChangeProfileUseCase extends ActivatedUseCase {

@@ -3,11 +3,12 @@ const BaseExpressRouter = require("./base.express.router");
 
 const BorrowBookUseCase = require("../../../../core/book/use-cases/borrow-book.use-case");
 const ReturnBookUseCase = require("../../../../core/book/use-cases/return-book.use-case");
-const AddBookUseCase = require("../../../../core/book/use-cases/add-book.use-case");
-const RemoveBookUseCase = require("../../../../core/book/use-cases/remove-book.use-case");
-const ChangeBookUseCase = require("../../../../core/book/use-cases/change-book.use-case");
 const ViewAllBooksUseCase = require("../../../../core/book/use-cases/view-all-books.use-case");
 const ViewSpecificBookUseCase = require("../../../../core/book/use-cases/view-specific-book.use-case");
+
+const AddBookUseCase = require("../../../../core/book/use-cases/librarian/add-book.use-case");
+const RemoveBookUseCase = require("../../../../core/book/use-cases/librarian/remove-book.use-case");
+const ChangeBookUseCase = require("../../../../core/book/use-cases/librarian/change-book.use-case");
 
 class BookExpressRouter extends BaseExpressRouter {
 	async _addBook(req, res) {

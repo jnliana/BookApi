@@ -1,4 +1,4 @@
-const BaseUseCase = require("../../base/base.use-case");
+const BaseUseCase = require("../../use-case/base.use-case");
 const NotImplementedError = require("../../error/not-implemented.error");
 
 class ResetEmailUseCase extends BaseUseCase {
