@@ -1,18 +1,16 @@
 const fs = require('fs');
-const path = require('path');
 const GatewayStrategy = require("../../../core/gateway/gateway.strategy");
 const JsonGatewayError = require('./json.gateway-error');
+const JsonGatewayInitializer = require('./json.gateway-initializer');
 
 class JsonGatewayStrategy extends GatewayStrategy {
 	_file;
 	_entities;
 
 	constructor (file) {
-		super();
+		super(new JsonGatewayInitializer(file));
 
-		file = this._makeFileAbsolute(file);
-		this._file = path.normalize(file);
-		this._checkFileAccess();
+		this._file = JsonGatewayInitializer.properifyFile(file);
 		this._read();
 	}
 
@@ -56,11 +54,6 @@ class JsonGatewayStrategy extends GatewayStrategy {
 		return null;
 	}
 
-	_makeFileAbsolute(file) {
-		if (path.isAbsolute(file)) return file;
-		else return path.join(process.cwd(), file);
-	}
-
 	_read() {
 		const fileContent = fs.readFileSync(this._file).toString();
 		const fileIsEmpty = fileContent === "";
@@ -76,34 +69,6 @@ class JsonGatewayStrategy extends GatewayStrategy {
 				else return resolve();
 			});
 		});
-	}
-
-	_checkFileAccess() {
-		this._checkFileExists();
-		this._checkFilePermission();
-		this._checkFileIsNotDirectory();
-	}
-
-	_checkFileExists() {
-		const fileDoeNotExist = fs.existsSync(this._file) === false;
-		if (fileDoeNotExist) {
-			throw new JsonGatewayError("JSON file for data storage does not exist: " + this._file);
-		}
-	}
-
-	_checkFilePermission() {
-		try {
-			fs.accessSync(this._file);
-		} catch (e) {
-			throw new JsonGatewayError("Not allowed no access the file.");
-		}
-	}
-
-	_checkFileIsNotDirectory() {
-		const fileIsDirectory = fs.statSync(this._file).isDirectory();
-		if (fileIsDirectory) {
-			throw new JsonGatewayError("Provied file is actually a directory!");
-		}
 	}
 }
 

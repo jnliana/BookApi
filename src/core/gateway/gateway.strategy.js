@@ -1,6 +1,10 @@
 const NotOverridenError = require("../error/not-overriden.error");
 
 class GatewayStrategy {
+	constructor(initializer) {
+		initializer.initialize();
+	}
+
 	async insert(entity) {
 		throw new NotOverridenError();
 	}

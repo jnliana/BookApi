@@ -1,5 +1,5 @@
-const BaseError = require("../../../core/base/base.error");
+const GatewayError = require("../../../core/gateway/gateway.error");
 
-class JsonGatewayError extends BaseError { }
+class JsonGatewayError extends GatewayError { }
 
 module.exports = JsonGatewayError;
