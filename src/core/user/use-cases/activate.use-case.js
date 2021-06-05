@@ -1,6 +1,7 @@
 const BaseUseCase = require("../../base/base.use-case");
 const hoursToMiliseconds = require("../../utility/hours-to-miliseconds");
 const UserService = require("../user.service");
+const UseCaseError = require("../../error/use-case.error");
 
 class ActivationError extends UseCaseError { }
 
