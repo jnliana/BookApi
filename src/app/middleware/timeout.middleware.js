@@ -8,16 +8,14 @@ function makeTimeoutMiddleware(requestTimeout = Config.requestTimeout, responseT
 
 	return (async (req, res, next) => {
 		req.setTimeout(requestTimeout, async () => {
-			return res.status(StatusCodes.CLIENT_TIMEOUT).json({
-				status: StatusCodes.CLIENT_TIMEOUT,
+			return res.deliverError(StatusCodes.SERVER_TIMEOUT, { 
 				message: `Request timeout for ${req.method} ${req.originalUrl} after ${requestTimeout}ms.`,
 				type: "RequestTimeoutError"
 			});
 		});
 
 		res.setTimeout(responseTimeout, async () => {
-			return res.status(StatusCodes.SERVER_TIMEOUT).json({
-				status: StatusCodes.SERVER_TIMEOUT,
+			return res.deliverError(StatusCodes.SERVER_TIMEOUT, { 
 				message: `Response timeout for ${req.method} ${req.originalUrl} after ${responseTimeout}ms.`,
 				type: "ResponseTimeoutError"
 			});

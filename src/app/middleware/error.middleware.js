@@ -23,13 +23,13 @@ function makeErrorMiddleware() {
 			message = error.message;
 		}
 
-		if (error instanceof UseCaseError) 
+		if (error instanceof UseCaseError)
 			status = StatusCodes.BAD_REQUEST;
 
 		else if (error instanceof AuthError)
 			status = StatusCodes.UNAUTHORIZED;
 
-		else if (error instanceof HttpError) 
+		else if (error instanceof HttpError)
 			status = error.status;
 
 		switch (true) {
@@ -46,11 +46,7 @@ function makeErrorMiddleware() {
 			}
 		}
 
-		return res.status(status).json({
-			status,
-			type,
-			message
-		});
+		return res.deliverError(status, { type, message });
 	});
 }
 
