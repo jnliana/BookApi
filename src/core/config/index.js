@@ -13,8 +13,8 @@ class Config {
 
 	shortIdLength = parseStringFromEnv("SHORT_ID_LENGTH", 5);
 
-	bookDataJsonFile = process.env.BOOK_DATA_JSON_FILE || "./data/books.json";
-	userDataJsonFile = process.env.USER_DATA_JSON_FILE || "./data/books.json";
+	bookDataJsonFile = parseStringFromEnv("BOOK_DATA_JSON_FILE", "./data/books.json");
+	userDataJsonFile = parseStringFromEnv("USER_DATA_JSON_FILE", "./data/books.json");
 
 	httpPort = parseNumberFromEnv("HTTP_PORT", 3000);
 	logLevel = parseNumberFromEnv("LOG_LEVEL", 4);
@@ -24,11 +24,11 @@ class Config {
 
 	emailFromAddress = parseStringFromEnv("EMAIL_FROM_ADDRESS", "noreply@bookapi.com");
 
-	nodemailerEmail = process.env.NODEMAILER_EMAIL || "wrong@email.com";
-	nodemailerPassword = process.env.NODEMAILER_PASSWORD || "wrongpassword";
-	nodemailerServiced = process.env.NODEMAILER_SERVICE || "wrongservice";
-	nodemailerSmtpHost = process.env.NODEMAILER_SMTP_HOST || "wrong.host.com";
-	nodemailerSmtpPort = process.env.NODEMAILER_SMTP_PORT || 12345;
+	nodemailerEmail = parseStringFromEnv("NODEMAILER_EMAIL", "wrong@email.com");
+	nodemailerPassword = parseStringFromEnv("NODEMAILER_PASSWORD", "wrongpassword");
+	nodemailerServiced = parseStringFromEnv("NODEMAILER_SERVICE", "wrongservice");
+	nodemailerSmtpHost = parseStringFromEnv("NODEMAILER_SMTP_HOST", "wrong.host.com");
+	nodemailerSmtpPort = parseNumberFromEnv("NODEMAILER_SMTP_PORT", 12345);
 }
 
 module.exports = { Config: Object.freeze(new Config()) };
