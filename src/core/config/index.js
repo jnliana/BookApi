@@ -1,6 +1,7 @@
 const { parseBooleanFromEnv, parseNumberFromEnv, parseStringFromEnv } = require("../utility/env");
 
 require("dotenv").config();
+
 class Config {
 	isProduction = parseBooleanFromEnv("PRODUCTION");
 

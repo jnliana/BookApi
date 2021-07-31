@@ -1,10 +1,12 @@
 const { BaseError } = require("../../core/base/base.error");
 const { ValidationError } = require("../../core/error/validation.error");
 const { UseCaseError } = require("../../core/error/use-case.error");
-const { Logger } = require("../../core/utility/logger");
+const { AuthError } = require("../../core/auth/auth.error");
+const { NotFoundError } = require("../error/not-found.error");
 const { HttpError } = require("../error/http.error");
 
-const { NotFoundError } = require("../error/not-found.error");
+const { Logger } = require("../../core/utility/logger");
+
 const { StatusCodes } = require("../status-codes");
 
 function makeErrorMiddleware() {
@@ -23,6 +25,9 @@ function makeErrorMiddleware() {
 
 		if (error instanceof UseCaseError) 
 			status = StatusCodes.BAD_REQUEST;
+
+		else if (error instanceof AuthError)
+			status = StatusCodes.UNAUTHORIZED;
 
 		else if (error instanceof HttpError) 
 			status = error.status;

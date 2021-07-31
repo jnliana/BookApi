@@ -10,10 +10,8 @@ function makeAuthRouter() {
 		const params = { 
 			...req.body 
 		};
-
-		Interactor.interact(Auth.Login, params, result => {
-			return res.status(200).json(result);
-		});
+		const result = await Interactor.interactAsync(Auth.Login, params);
+		return res.deliverPayload(200, result);
 	});
 
 	return router;

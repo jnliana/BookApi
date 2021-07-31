@@ -26,6 +26,15 @@ class Interactor {
 		this._schedular.schedule(interaction);
 	}
 
+	interactAsync(useCaseKey, params) {
+		return new Promise((resolve, reject) => {
+			this.interact(useCaseKey, params, (result, error) => {
+				if (!!error) return reject(error);
+				else return resolve(result);
+			});
+		});
+	}
+
 	_findUseCaseByKey(useCaseKey) {
 		return this._useCases.find(useCase => useCase.name === useCaseKey);
 	}

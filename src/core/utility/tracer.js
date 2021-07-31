@@ -21,6 +21,10 @@ class Tracer {
 	startChildSpan(name, parentSpan) {
 		return this._tracer.startSpan(name, { childOf: parentSpan });
 	}
+
+	getTraceIdOfSpan(span) {
+		return span._spanContext.traceId.toString("hex");
+	}
 }
 
 module.exports = { Tracer: Object.freeze(new Tracer(Config.serviceName)) };

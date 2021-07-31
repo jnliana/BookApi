@@ -3,7 +3,7 @@ const { Router } = require("express");
 function makePingRouter() {
 	const router = Router();
 
-	router.get("/", (req, res) => res.status(200).json("pong"));
+	router.get("/", (req, res) => res.deliverMessage(200, "pong"));
 
 	return router;
 }

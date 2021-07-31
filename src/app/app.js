@@ -9,6 +9,7 @@ const { makeRouter } = require("./router");
 const { makeTraceMiddleware } = require("./middleware/trace.middleware");
 const { makeLogMiddleware } = require("./middleware/log.middleware");
 const { makeTimeoutMiddleware } = require("./middleware/timeout.middleware");
+const { makePatchResponseMiddleware } = require("./middleware/patch-response.middleware");
 const { makeNotFoundMiddleware } = require("./middleware/not-found.middleware");
 const { makeErrorMiddleware } = require("./middleware/error.middleware");
 
@@ -24,9 +25,10 @@ function makeApp() {
 	app.use(compression());
 	app.use(express.json());
 
-	// app.use(makeTraceMiddleware());
+	app.use(makeTraceMiddleware());
 	app.use(makeLogMiddleware());
 	app.use(makeTimeoutMiddleware());
+	app.use(makePatchResponseMiddleware());
 
 	app.use("/api", makeRouter());
 

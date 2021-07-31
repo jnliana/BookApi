@@ -13,9 +13,8 @@ function makeBookRouter() {
 		async (req, res) => {
 			const params = {};
 
-			Interactor.interact(Book.ViewAll, params, books => {
-				return res.status(200).json(books);
-			});
+			const books = await Interactor.interactAsync(Book.ViewAll, params)
+			return res.deliverPayload(200, { books });
 		}
 	);
 
@@ -28,9 +27,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Add, params, bookId => {
-				return res.status(201).json(bookId);
-			});
+			const bookId = await Interactor.interactAsync(Book.Add, params);
+			return res.deliverPayload(200, { createdBook: bookId });
 		}
 	);
 
@@ -41,10 +39,11 @@ function makeBookRouter() {
 				bookId: req.params.bookId
 			};
 
-			Interactor.interact(Book.ViewSpecific, params, book => {
-				if (!book) return res.status(404).json("No book with that id");
-				else return res.status(200).json(book);
-			});
+			const book = await Interactor.interactAsync(Book.ViewSpecific, params);
+			if (!book)
+				throw new NotFoundError("Failed to find book with the id " + params.bookId + ".");
+			else
+				return res.deliverPayload(200, { book });
 		}
 	);
 
@@ -57,9 +56,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Delete, params, () => {
-				return res.status(200).json(`Book ${bookId} was succesfully deleted.`);
-			});
+			await Interactor.interactAsync(Book.Delete, params);
+			return res.deliverMessage(200, `Book ${bookId} was <succesfully deleted.`);
 		}
 	)
 
@@ -73,9 +71,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Change, params, () => {
-				return res.status(200).json(`Book ${bookId} was succesfully changed.`);
-			});
+			await Interactor.interactAsync(Book.Change, params);
+			return res.deliverMessage(200, `Book ${bookId} was succesfully changed.`);
 		}
 	);
 
@@ -89,9 +86,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Change, params, () => {
-				return res.status(200).json(`Book ${bookId} was succesfully changed.`);
-			});
+			await Interactor.interactAsync(Book.Change, params);
+			return res.deliverMessage(200, `Book ${bookId} was succesfully changed.`);
 		}
 	);
 
@@ -104,9 +100,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Borrow, params, () => {
-				return res.status(200).json(`Book ${bookId} was succesfully borrowed.`);
-			});
+			await Interactor.interactAsync(Book.Borrow, params);
+			return res.deliverMessage(200, `Book ${bookId} was succesfully borrowed.`);
 		}
 	);
 
@@ -119,9 +114,8 @@ function makeBookRouter() {
 				authToken: getAuthTokenFromRequest(req)
 			};
 
-			Interactor.interact(Book.Return, params, () => {
-				return res.status(200).json(`Book ${bookId} was succesfully returned.`);
-			});
+			await Interactor.interactAsync(Book.Return, params);
+			return res.deliverMessage(200, `Book ${bookId} was succesfully returned.`);
 		}
 	);
 

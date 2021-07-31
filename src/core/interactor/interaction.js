@@ -17,8 +17,18 @@ class Interaction {
 
 	async execute() {
 		const useCase = new this.useCase(this.params);
-		const result = await useCase.execute();
-		this._completionCallback(result);
+		
+		let result = null;
+		let error = null;
+
+		try {
+			result = await useCase.execute();
+		}
+		catch (e) {
+			error = e;
+		}
+		
+		this._completionCallback(result, error);
 	}
 
 	get useCaseKey() {

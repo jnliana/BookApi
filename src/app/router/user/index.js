@@ -13,9 +13,8 @@ function makeUserRouter() {
 				...req.body 
 			};
 
-			Interactor.interact(User.Register, params, () => {
-				return res.status(201).json("Successfully registered. An email for activation has been send!");
-			});
+			await Interactor.interactAsync(User.Register, params);
+			return res.deliverMessage(201, "Successfully registered. An email for activation has been send!");
 		}
 	);
 
@@ -26,9 +25,8 @@ function makeUserRouter() {
 				activationToken: req.params.activationToken 
 			};
 
-			Interactor.interact(User.Activate, params, () => {
-				return res.status(200).json("Successfully activated your account.");
-			});
+			await Interactor.interactAsync(User.Activate, params);
+			return res.deliverMessage(200, "Successfully activated your account.");
 		}
 	);
 
