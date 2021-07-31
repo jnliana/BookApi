@@ -1,7 +1,7 @@
 const { UserService } = require("../user/user.service");
 const { AuthTokenPayload } = require("./auth.token-payload");
 
-const { JwtAuthStrategy } = require("../../adapters/auth-strategy/jwt/jwt.auth-strategy");
+const { JwtAuthStrategy } = require("../../strategies/auth/jwt/jwt.auth-strategy");
 
 class AuthService {
 	_userService;

@@ -1,4 +1,4 @@
-const { JsonGatewayStrategy } = require("../../adapters/gateway-strategy/json/json.gateway-strategy");
+const { JsonGatewayStrategy } = require("../../strategies/gateway/json/json.gateway-strategy");
 
 class BaseGateway extends JsonGatewayStrategy { }
 

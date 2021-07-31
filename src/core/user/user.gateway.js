@@ -1,6 +1,6 @@
 const { Config } = require('../config');
 const { User } = require("./user.entity");
-const { JsonGatewayStrategy } = require("../../adapters/gateway-strategy/json/json.gateway-strategy");
+const { JsonGatewayStrategy } = require("../../strategies/gateway/json/json.gateway-strategy");
 
 class UserGateway extends JsonGatewayStrategy {
 	async findByEmail(email) {
@@ -35,4 +35,4 @@ class UserGateway extends JsonGatewayStrategy {
 	}
 }
 
-module.exports = { UserGateway: Object.freeze(new UserGateway(Config.USER_DATA_JSON_FILE)) };
+module.exports = { UserGateway: Object.freeze(new UserGateway(Config.userDataJsonFile)) };

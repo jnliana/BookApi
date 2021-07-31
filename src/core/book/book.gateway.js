@@ -21,5 +21,5 @@ class BookGateway extends BaseGateway {
 }
 
 module.exports = { 
-	BookGateway: Object.freeze(new BookGateway(Config.BOOK_DATA_JSON_FILE)) 
+	BookGateway: Object.freeze(new BookGateway(Config.bookDataJsonFile)) 
 };

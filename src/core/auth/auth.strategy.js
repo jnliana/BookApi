@@ -5,7 +5,7 @@ class AuthStrategy {
 	_secret;
 
 	constructor () {
-		this._secret = Config.SECRET;
+		this._secret = Config.secret;
 	}
 
 	async makeAuthToken(payload) {

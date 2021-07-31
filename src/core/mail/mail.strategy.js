@@ -6,8 +6,8 @@ class MailStrategy {
 	_replyTo;
 
 	constructor () {
-		this._from = Config.EMAIL_FROM_ADDRESS;
-		this._replyTo = Config.EMAIL_FROM_ADDRESS;
+		this._from = Config.emailFromAddress;
+		this._replyTo = Config.emailFromAddress;
 	}
 
 	async send(sendParamater) {
