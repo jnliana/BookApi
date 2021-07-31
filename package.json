@@ -23,15 +23,22 @@
     "@types/cors": "^2.8.10",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.12",
+    "@types/jaeger-client": "^3.18.2",
     "@types/jsonwebtoken": "^8.5.1",
     "@types/nanoid": "^3.0.0",
     "@types/nodemailer": "^6.4.2",
     "@types/uuid": "^8.3.0",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.12",
+    "ntl": "^5.1.0",
+    "webpack": "^5.46.0",
+    "webpack-cli": "^4.7.2"
   },
   "scripts": {
     "start": "node src/main.js",
     "start:dev": "nodemon src/main.js",
+    "start:prod": "node dist/main.bundle.js",
+    "build": "webpack",
+    "build:watch": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "China Cat Sunflower",

@@ -1,17 +1,9 @@
 const { Router } = require("express");
 
-const { makeAuthGuardMiddleware } = require("../../middleware/auth-guard.middleware");
+const { makeAuthGuardMiddleware, getAuthTokenFromRequest } = require("../../middleware/auth-guard.middleware");
 
 const { Interactor } = require("../../../core/interactor/interactor");
 const { Book } = require("../../../core/interactions").Interactions;
-
-const { BorrowBookUseCase } = require("../../../core/book/use-cases/borrow-book.use-case");
-const { ReturnBookUseCase } = require("../../../core/book/use-cases/return-book.use-case");
-const { AddBookUseCase } = require("../../../core/book/use-cases/add-book.use-case");
-const { RemoveBookUseCase } = require("../../../core/book/use-cases/remove-book.use-case");
-const { ChangeBookUseCase } = require("../../../core/book/use-cases/change-book.use-case");
-const { ViewAllBooksUseCase } = require("../../../core/book/use-cases/view-all-books.use-case");
-const { ViewSpecificBookUseCase } = require("../../../core/book/use-cases/view-specific-book.use-case");
 
 function makeBookRouter() {
 	const router = Router();
@@ -19,10 +11,11 @@ function makeBookRouter() {
 	router.get(
 		"/",
 		async (req, res) => {
-			const useCase = new ViewAllBooksUseCase();
-			const books = await useCase.execute();
+			const params = {};
 
-			return res.status(200).json(books);
+			Interactor.interact(Book.ViewAll, params, books => {
+				return res.status(200).json(books);
+			});
 		}
 	);
 
@@ -30,9 +23,12 @@ function makeBookRouter() {
 		"/",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				...req.body,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			Interactor.interact(Book.Add, { ...req.body, authToken }, bookId => {
+			Interactor.interact(Book.Add, params, bookId => {
 				return res.status(201).json(bookId);
 			});
 		}
@@ -41,12 +37,14 @@ function makeBookRouter() {
 	router.get(
 		"/:bookId",
 		async (req, res) => {
-			const { bookId } = req.params;
-			const useCase = new ViewSpecificBookUseCase({ bookId });
-			const book = await useCase.execute();
+			const params = {
+				bookId: req.params.bookId
+			};
 
-			if (!book) return res.status(404).json("No book with that id");
-			else return res.status(200).json(book);
+			Interactor.interact(Book.ViewSpecific, params, book => {
+				if (!book) return res.status(404).json("No book with that id");
+				else return res.status(200).json(book);
+			});
 		}
 	);
 
@@ -54,13 +52,14 @@ function makeBookRouter() {
 		"/:bookId",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const { bookId } = req.params;
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				bookId: req.params.bookId,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			const useCase = new RemoveBookUseCase({ bookId }, authToken);
-			await useCase.execute();
-
-			return res.status(200).json(`Book ${bookId} was succesfully deleted.`);
+			Interactor.interact(Book.Delete, params, () => {
+				return res.status(200).json(`Book ${bookId} was succesfully deleted.`);
+			});
 		}
 	)
 
@@ -68,13 +67,15 @@ function makeBookRouter() {
 		"/:bookId",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const { bookId } = req.params;
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				...req.body,
+				bookId: req.params.bookId,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			const useCase = new ChangeBookUseCase({ ...req.body, bookId }, authToken);
-			await useCase.execute();
-
-			return res.status(200).json(`Book ${bookId} was succesfully changed.`);
+			Interactor.interact(Book.Change, params, () => {
+				return res.status(200).json(`Book ${bookId} was succesfully changed.`);
+			});
 		}
 	);
 
@@ -82,14 +83,15 @@ function makeBookRouter() {
 		"/:bookId",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const { bookId } = req.params;
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				...req.body,
+				bookId: req.params.bookId,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			const useCase = new ChangeBookUseCase({ ...req.body, bookId }, authToken);
-			await useCase.execute();
-
-			return res.status(200).json(`Book ${bookId} was succesfully changed.`);
-
+			Interactor.interact(Book.Change, params, () => {
+				return res.status(200).json(`Book ${bookId} was succesfully changed.`);
+			});
 		}
 	);
 
@@ -97,13 +99,14 @@ function makeBookRouter() {
 		"/:bookId/borrow",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const { bookId } = req.params;
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				bookId: req.params.bookId,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			const useCase = new BorrowBookUseCase({ bookId }, authToken);
-			await useCase.execute();
-
-			return res.status(200).json(`Book ${bookId} was succesfully borrowed.`);
+			Interactor.interact(Book.Borrow, params, () => {
+				return res.status(200).json(`Book ${bookId} was succesfully borrowed.`);
+			});
 		}
 	);
 
@@ -111,13 +114,14 @@ function makeBookRouter() {
 		"/:bookId/return",
 		makeAuthGuardMiddleware(),
 		async (req, res) => {
-			const { bookId } = req.params;
-			const authToken = this._getAuthTokenFromRequest(req);
+			const params = {
+				bookId: req.params.bookId,
+				authToken: getAuthTokenFromRequest(req)
+			};
 
-			const useCase = new ReturnBookUseCase({ bookId }, authToken);
-			await useCase.execute();
-
-			return res.status(200).json(`Book ${bookId} was succesfully returned.`);
+			Interactor.interact(Book.Return, params, () => {
+				return res.status(200).json(`Book ${bookId} was succesfully returned.`);
+			});
 		}
 	);
 

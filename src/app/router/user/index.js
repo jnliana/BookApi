@@ -1,7 +1,7 @@
 const { Router } = require("express");
 
-const { RegisterUseCase } = require("../../../core/user/use-cases/register.use-case");
-const { ActivateUseCase } = require("../../../core/user/use-cases/activate.use-case");
+const { Interactor } = require("../../../core/interactor/interactor");
+const { User } = require("../../../core/interactions").Interactions;
 
 function makeUserRouter() {
 	const router = Router();
@@ -9,22 +9,26 @@ function makeUserRouter() {
 	router.post(
 		"/register",
 		async (req, res) => {
-			const useCase = new RegisterUseCase(req.body);
-			await useCase.execute();
+			const params = { 
+				...req.body 
+			};
 
-			return res.status(201).json("Successfully registered. An email for activation has been send!");
+			Interactor.interact(User.Register, params, () => {
+				return res.status(201).json("Successfully registered. An email for activation has been send!");
+			});
 		}
 	);
 
 	router.get(
 		"/activate/:activationToken",
 		async (req, res) => {
-			const { activationToken } = req.params;
+			const params = { 
+				activationToken: req.params.activationToken 
+			};
 
-			const useCase = new ActivateUseCase({ activationToken });
-			await useCase.execute();
-
-			return res.status(200).json("Successfully activated your account.");
+			Interactor.interact(User.Activate, params, () => {
+				return res.status(200).json("Successfully activated your account.");
+			});
 		}
 	);
 

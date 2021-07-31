@@ -1,10 +1,20 @@
 const { Router } = require("express");
-const { makeLoginRouter } = require("./login.router");
+
+const { Interactor } = require("../../../core/interactor/interactor");
+const { Auth } = require("../../../core/interactions").Interactions;
 
 function makeAuthRouter() {
 	const router = Router();
 
-	router.use("/login", makeLoginRouter());
+	router.post("/login", async (req, res) => {
+		const params = { 
+			...req.body 
+		};
+
+		Interactor.interact(Auth.Login, params, result => {
+			return res.status(200).json(result);
+		});
+	});
 
 	return router;
 }
