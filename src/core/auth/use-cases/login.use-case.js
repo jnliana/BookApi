@@ -20,10 +20,10 @@ class LoginUseCase extends BaseUseCase {
 
 	async _validateCredentials(user, password) {
 		if (!user)
-			throw new LoginError(_badCredentialsErrorMessage);
+			throw new LoginError(this._badCredentialsErrorMessage);
 
 		if (!user.checkPassword(password))
-			throw new LoginError(_badCredentialsErrorMessage);
+			throw new LoginError(this._badCredentialsErrorMessage);
 	}
 
 	async _makeLoginResponse(user) {

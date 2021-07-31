@@ -8,9 +8,9 @@ class AuthenticatedUseCase extends BaseUseCase {
 	_authService = AuthService;
 	_issuer;
 
-	constructor (request, authToken) {
+	constructor (request) {
 		super(request);
-		this._authToken = authToken;
+		this._authToken = request.authToken;
 	}
 
 	async execute() {

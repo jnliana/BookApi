@@ -1,5 +1,5 @@
 const { Entity } = require("../base/base.entity");
-const { hash, compareHash } = require("../utility/hash");
+const { hash, compare } = require("../utility/hash");
 const { makeToken } = require("../utility/token");
 
 class User extends Entity {
@@ -17,7 +17,9 @@ class User extends Entity {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.passwordHash = hash(password);
+		
+		if (password) this.passwordHash = hash(password);
+		
 		this.role = role;
 		this.activation = {
 			issuedAt: null,
@@ -33,7 +35,7 @@ class User extends Entity {
 	}
 
 	checkPassword(plain) {
-		return compareHash(plain, this.passwordHash);
+		return compare(this.passwordHash, plain);
 	}
 
 	setPassword(password) {
