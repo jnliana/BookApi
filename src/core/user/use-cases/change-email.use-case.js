@@ -1,5 +1,5 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
-const NotImplementedError = require("../../error/not-implemented.error");
+const { ActivatedUseCase } = require("../../auth/use-cases/abstract/activated.use-case");
+const { NotImplementedError } = require("../../error/not-implemented.error");
 
 class ChangeEmailUseCase extends ActivatedUseCase {
 	async _executeActivated() {
@@ -7,4 +7,4 @@ class ChangeEmailUseCase extends ActivatedUseCase {
 	}
 }
 
-module.exports = ChangeEmailUseCase;
+module.exports = { ChangeEmailUseCase };

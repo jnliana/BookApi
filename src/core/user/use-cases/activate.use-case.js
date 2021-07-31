@@ -1,7 +1,7 @@
-const BaseUseCase = require("../../base/base.use-case");
-const hoursToMiliseconds = require("../../utility/hours-to-miliseconds");
-const UserService = require("../user.service");
-const UseCaseError = require("../../error/use-case.error");
+const { BaseUseCase } = require("../../base/base.use-case");
+const { hoursToMiliseconds } = require("../../utility/hours-to-miliseconds");
+const { UserService } = require("../user.service");
+const { UseCaseError } = require("../../error/use-case.error");
 
 class ActivationError extends UseCaseError { }
 
@@ -13,7 +13,7 @@ class ActivateUseCase extends BaseUseCase {
 		const { activationToken } = this._request;
 
 		const user = await this._getUser(activationToken);
-		
+
 		await this._checkTokenIsStillValid(user);
 		await this._completeUsersActivation(user);
 	}
@@ -22,7 +22,7 @@ class ActivateUseCase extends BaseUseCase {
 		const user = await this._userService.findByActivationToken(activationToken);
 		if (!user)
 			throw new ActivationError("No user with that activation token");
-	
+
 		return user;
 	}
 
@@ -47,4 +47,4 @@ class ActivateUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = ActivateUseCase;
+module.exports = { ActivateUseCase };

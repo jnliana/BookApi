@@ -1,9 +1,9 @@
-const BaseError = require("../base/base.error");
+const { BaseError } = require("../base/base.error");
 
-class NotOverridenError extends BaseError { 
+class NotOverridenError extends BaseError {
 	constructor (message = "The called function is abstract and has not yet been overriden.") {
 		super(message);
 	}
 }
 
-module.exports = NotOverridenError;
+module.exports = { NotOverridenError };

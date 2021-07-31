@@ -1,7 +1,7 @@
-const UserService = require("../user/user.service");
-const AuthTokenPayload = require("./auth.token-payload");
+const { UserService } = require("../user/user.service");
+const { AuthTokenPayload } = require("./auth.token-payload");
 
-const JwtAuthStrategy = require("../../adapters/auth-strategy/jwt/jwt.auth-strategy");
+const { JwtAuthStrategy } = require("../../adapters/auth-strategy/jwt/jwt.auth-strategy");
 
 class AuthService {
 	_userService;
@@ -28,9 +28,11 @@ class AuthService {
 	}
 }
 
-module.exports = Object.freeze(
-	new AuthService(
-		UserService,
-		Object.freeze(new JwtAuthStrategy())
+module.exports = {
+	AuthService: Object.freeze(
+		new AuthService(
+			UserService,
+			Object.freeze(new JwtAuthStrategy())
+		)
 	)
-);
+};

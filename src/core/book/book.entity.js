@@ -1,4 +1,4 @@
-const Entity = require("../base/base.entity");
+const { Entity } = require("../base/base.entity");
 
 class Book extends Entity {
 	title;
@@ -7,9 +7,9 @@ class Book extends Entity {
 	releaseYear;
 	borrowed;
 
-	constructor(title, publisher, author, releaseYear) {
+	constructor (title, publisher, author, releaseYear) {
 		super();
-		
+
 		this.title = title;
 		this.publisher = publisher;
 		this.author = author;
@@ -26,4 +26,4 @@ class Book extends Entity {
 	}
 }
 
-module.exports = Book;
+module.exports = { Book };

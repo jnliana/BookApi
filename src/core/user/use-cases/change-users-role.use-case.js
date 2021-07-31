@@ -1,6 +1,6 @@
-const AdminUseCase = require("../../auth/use-cases/abstract/admin.use-case");
-const UserService = require("../user.service");
-const UseCaseError = require("../../error/use-case.error");
+const { AdminUseCase } = require("../../auth/use-cases/abstract/admin.use-case");
+const { UserService } = require("../user.service");
+const { UseCaseError } = require("../../error/use-case.error");
 
 class ChangeUsersRoleError extends UseCaseError { }
 
@@ -27,4 +27,4 @@ class ChangeUsersRoleUseCase extends AdminUseCase {
 	}
 }
 
-module.exports = ChangeUsersRoleUseCase;
+module.exports = { ChangeUsersRoleUseCase };

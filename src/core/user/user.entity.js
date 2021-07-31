@@ -1,6 +1,6 @@
-const Entity = require("../base/base.entity");
+const { Entity } = require("../base/base.entity");
 const { hash, compareHash } = require("../utility/hash");
-const token = require("../utility/token");
+const { makeToken } = require("../utility/token");
 
 class User extends Entity {
 	firstName;
@@ -46,7 +46,7 @@ class User extends Entity {
 	}
 
 	issueActivation() {
-		this.activation.token = token();
+		this.activation.token = makeToken();
 		this.activation.issuedAt = new Date();
 		this.activation.completed = false;
 		this.activation.completedAt = null;
@@ -66,4 +66,4 @@ class User extends Entity {
 	}
 }
 
-module.exports = User;
+module.exports = { User };

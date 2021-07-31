@@ -1,6 +1,6 @@
-const Config = require('../config');
-const BaseGateway = require('../base/base.gateway');
-const Book = require('./book.entity');
+const { Config } = require('../config');
+const { BaseGateway } = require('../base/base.gateway');
+const { Book } = require('./book.entity');
 
 class BookGateway extends BaseGateway {
 	_mapToEntity(gatewayRepresentation) {
@@ -20,4 +20,6 @@ class BookGateway extends BaseGateway {
 	}
 }
 
-module.exports = Object.freeze(new BookGateway(Config.BOOK_DATA_JSON_FILE));
+module.exports = { 
+	BookGateway: Object.freeze(new BookGateway(Config.BOOK_DATA_JSON_FILE)) 
+};

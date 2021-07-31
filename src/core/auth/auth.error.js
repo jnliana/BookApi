@@ -1,5 +1,5 @@
-const BaseError = require("../base/base.error");
+const { BaseError } = require("../base/base.error");
 
 class AuthError extends BaseError { }
 
-module.exports = AuthError;
+module.exports = { AuthError };

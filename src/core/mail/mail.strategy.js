@@ -1,11 +1,11 @@
-const Config = require("../config");
-const NotOverridenError = require("../error/not-overriden.error");
+const { Config } = require("../config");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class MailStrategy {
 	_from;
 	_replyTo;
 
-	constructor() {
+	constructor () {
 		this._from = Config.EMAIL_FROM_ADDRESS;
 		this._replyTo = Config.EMAIL_FROM_ADDRESS;
 	}
@@ -15,4 +15,4 @@ class MailStrategy {
 	}
 }
 
-module.exports = MailStrategy;
+module.exports = { MailStrategy };

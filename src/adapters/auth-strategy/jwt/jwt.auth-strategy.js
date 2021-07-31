@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
-const AuthStrategy = require("../../../core/auth/auth.strategy");
+
+const { AuthStrategy } = require("../../../core/auth/auth.strategy");
 
 class JwtAuthStrategy extends AuthStrategy {
 	async makeAuthToken(payload) {
@@ -25,4 +26,4 @@ class JwtAuthStrategy extends AuthStrategy {
 	}
 }
 
-module.exports = JwtAuthStrategy;
+module.exports = { JwtAuthStrategy };

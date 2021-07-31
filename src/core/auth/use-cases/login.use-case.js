@@ -1,7 +1,7 @@
-const BaseUseCase = require("../../base/base.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const UserService = require("../../user/user.service");
-const AuthService = require("../auth.service");
+const { BaseUseCase } = require("../../base/base.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { UserService } = require("../../user/user.service");
+const { AuthService } = require("../auth.service");
 
 class LoginError extends UseCaseError { }
 
@@ -17,12 +17,12 @@ class LoginUseCase extends BaseUseCase {
 		await this._validateCredentials(user, password);
 		return await this._makeLoginResponse(user);
 	}
-	
+
 	async _validateCredentials(user, password) {
-		if (!user) 
+		if (!user)
 			throw new LoginError(_badCredentialsErrorMessage);
-			
-		if (!user.checkPassword(password)) 
+
+		if (!user.checkPassword(password))
 			throw new LoginError(_badCredentialsErrorMessage);
 	}
 
@@ -32,4 +32,4 @@ class LoginUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = LoginUseCase;
+module.exports = { LoginUseCase };

@@ -1,5 +1,5 @@
-const BaseValidation = require("../base/base.validation");
-const ValidationError = require("../error/validation.error");
+const { BaseValidation } = require("../base/base.validation");
+const { ValidationError } = require("../error/validation.error");
 
 class DateValidation extends BaseValidation {
 	_type = "date";
@@ -23,4 +23,4 @@ class DateValidation extends BaseValidation {
 	}
 }
 
-module.exports = DateValidation;
+module.exports = { DateValidation }

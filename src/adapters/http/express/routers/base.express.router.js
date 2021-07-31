@@ -20,4 +20,4 @@ class BaseExpressRouter {
 	}
 }
 
-module.exports = BaseExpressRouter;
+module.exports = { BaseExpressRouter };

@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-const GatewayStrategy = require("../../../core/gateway/gateway.strategy");
-const JsonGatewayError = require('./json.gateway-error');
+
+const { GatewayStrategy } = require("../../../core/gateway/gateway.strategy");
+const { JsonGatewayError } = require('./json.gateway-error');
 
 class JsonGatewayStrategy extends GatewayStrategy {
 	_file;
@@ -107,4 +108,4 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	}
 }
 
-module.exports = JsonGatewayStrategy;
+module.exports = { JsonGatewayStrategy };

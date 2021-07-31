@@ -1,5 +1,14 @@
-const bcryptjs = require("bcryptjs");
+const { hashSync, compareSync } = require("bcryptjs");
 
-module.exports.hash = value => bcryptjs.hashSync(value);
+function hash(data) {
+	return hashSync(data);
+}
 
-module.exports.compareHash = (value, hash)  => bcryptjs.compareSync(value, hash);
+function compare(hash, data) {
+	return compareSync(data, hash);
+}
+
+module.exports = {
+	hash,
+	compare
+};

@@ -1,5 +1,5 @@
-const AuthenticatedUseCase = require("./authenticated.use-case");
-const NotOverridenError = require("../../../error/not-overriden.error");
+const { AuthenticatedUseCase } = require("./authenticated.use-case");
+const { NotOverridenError } = require("../../../error/not-overriden.error");
 
 class AuthorizedUseCase extends AuthenticatedUseCase {
 	async execute() {
@@ -18,4 +18,4 @@ class AuthorizedUseCase extends AuthenticatedUseCase {
 	}
 }
 
-module.exports = AuthorizedUseCase;
+module.exports = { AuthorizedUseCase };

@@ -1,4 +1,4 @@
-const BaseValidation = require("../base/base.validation");
+const { BaseValidation } = require("../base/base.validation");
 
 class BooleanValidation extends BaseValidation {
 	_type = "boolean";
@@ -6,4 +6,4 @@ class BooleanValidation extends BaseValidation {
 	_validate() { }
 }
 
-module.exports = BooleanValidation;
+module.exports = { BooleanValidation };

@@ -1,5 +1,5 @@
-const BaseValidator = require("../base/base.validator");
-const StringValidation = require("../validation/string.validation");
+const { BaseValidator } = require("../base/base.validator");
+const { StringValidation } = require("../validation/string.validation");
 
 class BookValidator extends BaseValidator {
 	validate(book) {
@@ -21,4 +21,4 @@ class BookValidator extends BaseValidator {
 	}
 }
 
-module.exports = Object.freeze(new BookValidator());
+module.exports = { BookValidator: Object.freeze(new BookValidator()) };

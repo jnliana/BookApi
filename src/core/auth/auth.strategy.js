@@ -1,5 +1,5 @@
-const Config = require("../config");
-const NotImplementedError = require("../error/not-implemented.error");
+const { Config } = require("../config");
+const { NotImplementedError } = require("../error/not-implemented.error");
 
 class AuthStrategy {
 	_secret;
@@ -21,4 +21,4 @@ class AuthStrategy {
 	}
 }
 
-module.exports = AuthStrategy;
+module.exports = { AuthStrategy };

@@ -1,7 +1,7 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const UserService = require("../../user/user.service");
-const BookService = require("../book.service");
+const { ActivatedUseCase } = require("../../auth/use-cases/abstract/activated.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { UserService } = require("../../user/user.service");
+const { BookService } = require("../book.service");
 
 class ReturnBookError extends UseCaseError { }
 
@@ -18,7 +18,7 @@ class ReturnBookUseCase extends ActivatedUseCase {
 		await this._checkBookIsBorrowedByUser(user, bookId);
 		await this._returnBook(book, user, bookId);
 	}
-	
+
 	async _getBook(bookId) {
 		const book = await this._bookService.findById(bookId);
 		if (!book)
@@ -54,4 +54,4 @@ class ReturnBookUseCase extends ActivatedUseCase {
 	}
 }
 
-module.exports = ReturnBookUseCase;
+module.exports = { ReturnBookUseCase };

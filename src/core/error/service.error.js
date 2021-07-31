@@ -1,5 +1,5 @@
-const BaseError = require("../base/base.error");
+const { BaseError } = require("../base/base.error");
 
 class ServiceError extends BaseError { }
 
-module.exports = ServiceError;
+module.exports = { ServiceError };

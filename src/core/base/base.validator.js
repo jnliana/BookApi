@@ -1,4 +1,4 @@
-const NotOverridenError = require("../error/not-overriden.error");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class BaseValidator {
 	validate() {
@@ -6,4 +6,4 @@ class BaseValidator {
 	}
 }
 
-module.exports = BaseValidator;
+module.exports = { BaseValidator };

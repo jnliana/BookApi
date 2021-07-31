@@ -1,7 +1,7 @@
-const AuthService = require("../../auth.service");
-const BaseUseCase = require("../../../base/base.use-case");
-const NotOverridenError = require("../../../error/not-overriden.error");
-const AuthError = require("../../auth.error");
+const { AuthService } = require("../../auth.service");
+const { BaseUseCase } = require("../../../base/base.use-case");
+const { NotOverridenError } = require("../../../error/not-overriden.error");
+const { AuthError } = require("../../auth.error");
 
 class AuthenticatedUseCase extends BaseUseCase {
 	_authToken;
@@ -36,4 +36,4 @@ class AuthenticatedUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = AuthenticatedUseCase;
+module.exports = { AuthenticatedUseCase };

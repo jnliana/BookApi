@@ -1,7 +1,8 @@
 const { Router } = require("express");
-const RegisterUseCase = require("../../../../core/user/use-cases/register.use-case");
-const ActivateUseCase = require("../../../../core/user/use-cases/activate.use-case");
-const BaseExpressRouter = require("./base.express.router");
+
+const { RegisterUseCase } = require("../../../../core/user/use-cases/register.use-case");
+const { ActivateUseCase } = require("../../../../core/user/use-cases/activate.use-case");
+const { BaseExpressRouter } = require("./base.express.router");
 
 class UserExpressRouter extends BaseExpressRouter {
 	async _register(req, res) {
@@ -37,4 +38,4 @@ class UserExpressRouter extends BaseExpressRouter {
 	}
 }
 
-module.exports = Object.freeze(new UserExpressRouter());
+module.exports = { UserExpressRouter: Object.freeze(new UserExpressRouter()) };

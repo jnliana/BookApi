@@ -1,4 +1,4 @@
-const NotOverridenError = require("../error/not-overriden.error");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class BaseService {
 	_gateway;
@@ -31,4 +31,4 @@ class BaseService {
 	}
 }
 
-module.exports = BaseService;
+module.exports = { BaseService };

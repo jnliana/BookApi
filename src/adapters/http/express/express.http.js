@@ -4,26 +4,17 @@ const cors = require("cors");
 const helmet = require("helmet");
 const compression = require("compression");
 
-const Config = require("../../../core/config");
+const { Config } = require("../../../core/config");
 
-const LoggingMiddleware = require("./middlewares/logging.middleware.express.http");
-const NotFoundMiddleware = require("./middlewares/not-found.middleware.express.http");
-const ErrorMiddleware = require("./middlewares/error.middleware.express.http");
+const { LoggingMiddleware } = require("./middlewares/logging.middleware.express.http");
+const { NotFoundMiddleware } = require("./middlewares/not-found.middleware.express.http");
+const { ErrorMiddleware } = require("./middlewares/error.middleware.express.http");
 
-const applyRouters = require("./routers");
-
-module.exports = () => {
-	require("express-async-errors");
-
-	const app = express();
-
-	buildApp(app);
-	startApp(app);
-};
+const { applyRouters } = require("./routers");
 
 function buildApp(app) {
 	applyPreMiddlewares(app);
-	applyRouters(app);	
+	applyRouters(app);
 	applyPostMiddlewares(app);
 }
 
@@ -46,3 +37,12 @@ function startApp(app) {
 	const port = Config.HTTP_PORT;
 	app.listen(port, () => console.log("App is listening on *:" + port));
 }
+
+module.exports = () => {
+	require("express-async-errors");
+
+	const app = express();
+
+	buildApp(app);
+	startApp(app);
+};

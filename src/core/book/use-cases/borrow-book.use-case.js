@@ -1,7 +1,7 @@
-const ActivatedUseCase = require("../../auth/use-cases/abstract/activated.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const UserService = require("../../user/user.service");
-const BookService = require("../book.service");
+const { ActivatedUseCase } = require("../../auth/use-cases/abstract/activated.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { UserService } = require("../../user/user.service");
+const { BookService } = require("../book.service");
 
 class BorrowBookError extends UseCaseError { }
 
@@ -18,7 +18,7 @@ class BorrowBookUseCase extends ActivatedUseCase {
 
 		await this._checkBookIsNotBorrowed(book);
 		await this._checkUserCanBorrowAnotherBook(user);
-		
+
 		await this._borrowBook(book, bookId, user);
 	}
 
@@ -55,4 +55,4 @@ class BorrowBookUseCase extends ActivatedUseCase {
 	}
 }
 
-module.exports = BorrowBookUseCase;
+module.exports = { BorrowBookUseCase };

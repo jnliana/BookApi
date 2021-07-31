@@ -1,7 +1,7 @@
-const AuthorizedUseCase = require("./authorized.use-case");
-const NotOverridenError = require("../../../error/not-overriden.error");
-const UserRoles = require("../../../user/user.roles");
-const AuthError = require("../../auth.error");
+const { AuthorizedUseCase } = require("./authorized.use-case");
+const { NotOverridenError } = require("../../../error/not-overriden.error");
+const { UserRoles } = require("../../../user/user.roles");
+const { AuthError } = require("../../auth.error");
 
 class AdminUseCase extends AuthorizedUseCase {
 	async _isAuthorizedGuard() {
@@ -13,4 +13,4 @@ class AdminUseCase extends AuthorizedUseCase {
 	}
 }
 
-module.exports = AdminUseCase;
+module.exports = { AdminUseCase };

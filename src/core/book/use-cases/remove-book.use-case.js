@@ -1,6 +1,6 @@
-const LibrarianUseCase = require("../../auth/use-cases/abstract/librarian.use-case");
-const UseCaseError = require("../../error/use-case.error");
-const BookService = require("../book.service");
+const { LibrarianUseCase } = require("../../auth/use-cases/abstract/librarian.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { BookService } = require("../book.service");
 
 class RemoveBookError extends UseCaseError { }
 
@@ -9,7 +9,7 @@ class RemoveBookUseCase extends LibrarianUseCase {
 
 	async _executeAuthorized() {
 		const { bookId } = this._request;
-		
+
 		const book = await this._getBook(bookId);
 		await this._checkBookIsNotBorrowed(book);
 		await this._bookService.removeById(book.id);
@@ -29,4 +29,4 @@ class RemoveBookUseCase extends LibrarianUseCase {
 	}
 }
 
-module.exports = RemoveBookUseCase;
+module.exports = { RemoveBookUseCase };

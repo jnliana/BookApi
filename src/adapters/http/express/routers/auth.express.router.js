@@ -1,12 +1,12 @@
 const { Router } = require("express");
-const LoginUseCase = require("../../../../core/auth/use-cases/login.use-case");
-const BaseExpressRouter = require("./base.express.router");
+const { LoginUseCase } = require("../../../../core/auth/use-cases/login.use-case");
+const { BaseExpressRouter } = require("./base.express.router");
 
 class AuthExpressRouter extends BaseExpressRouter {
 	async _login(req, res) {
 		const useCase = new LoginUseCase(req.body);
 		const result = await useCase.execute();
-		
+
 		return res.status(200).json(result);
 	}
 
@@ -19,4 +19,4 @@ class AuthExpressRouter extends BaseExpressRouter {
 	}
 }
 
-module.exports = Object.freeze(new AuthExpressRouter());
+module.exports = { AuthExpressRouter: Object.freeze(new AuthExpressRouter()) };
