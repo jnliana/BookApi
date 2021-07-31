@@ -14,4 +14,4 @@ class NodemailerTransporterSettings {
 	}
 }
 
-module.exports = NodemailerTransporterSettings;
+module.exports = { NodemailerTransporterSettings };

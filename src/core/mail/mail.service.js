@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 const NodemailerMailStrategy = require("../../adapters/mail-strategy/nodemailer/nodemailer.mail-strategy");
 const BaseError = require("../error/base.error");
 const Config = require("../config");
 const MailSendParameter = require("./mail.send-parameter");
+=======
+const { NodemailerMailStrategy } = require("../../strategies/mail/nodemailer/nodemailer.mail-strategy");
+const { BaseError } = require("../base/base.error");
+const { Config } = require("../config");
+const { MailSendParameter } = require("./mail.send-parameter");
+>>>>>>> develop
 
 class MailError extends BaseError { }
 
@@ -24,6 +31,7 @@ class MailService {
 	}
 }
 
+<<<<<<< HEAD
 module.exports = Object.freeze(
 	new MailService(Object.freeze(new NodemailerMailStrategy({
 		service: Config.NODEMAILER_SERVICE,
@@ -33,3 +41,16 @@ module.exports = Object.freeze(
 		password: Config.NODEMAILER_PASSWORD
 	})))
 );
+=======
+module.exports = {
+	MailService: Object.freeze(
+		new MailService(Object.freeze(new NodemailerMailStrategy({
+			service: Config.nodemailerServiced,
+			smtpHost: Config.nodemailerSmtpHost,
+			smtpPort: Config.nodemailerSmtpHost,
+			email: Config.nodemailerEmail,
+			password: Config.nodemailerPassword
+		})))
+	)
+};
+>>>>>>> develop

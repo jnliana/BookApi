@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 const Config = require('../config');
 const User = require("./user.entity");
 const EntityGateway = require("../entity/entity.gateway");
+=======
+const { Config } = require('../config');
+const { User } = require("./user.entity");
+const { JsonGatewayStrategy } = require("../../strategies/gateway/json/json.gateway-strategy");
+>>>>>>> develop
 
 class UserGateway extends EntityGateway {
 	async findByEmail(email) {
@@ -35,4 +41,4 @@ class UserGateway extends EntityGateway {
 	}
 }
 
-module.exports = Object.freeze(new UserGateway(Config.USER_DATA_JSON_FILE));
+module.exports = { UserGateway: Object.freeze(new UserGateway(Config.userDataJsonFile)) };

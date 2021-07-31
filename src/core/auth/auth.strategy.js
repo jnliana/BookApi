@@ -1,11 +1,11 @@
-const Config = require("../config");
-const NotImplementedError = require("../error/not-implemented.error");
+const { Config } = require("../config");
+const { NotImplementedError } = require("../error/not-implemented.error");
 
 class AuthStrategy {
 	_secret;
 
 	constructor () {
-		this._secret = Config.SECRET;
+		this._secret = Config.secret;
 	}
 
 	async makeAuthToken(payload) {
@@ -21,4 +21,4 @@ class AuthStrategy {
 	}
 }
 
-module.exports = AuthStrategy;
+module.exports = { AuthStrategy };

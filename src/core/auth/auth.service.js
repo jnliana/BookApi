@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 const AuthTokenPayload = require("./auth.token-payload");
 const JwtAuthStrategy = require("../../adapters/auth-strategy/jwt/jwt.auth-strategy");
+=======
+const { UserService } = require("../user/user.service");
+const { AuthTokenPayload } = require("./auth.token-payload");
+
+const { JwtAuthStrategy } = require("../../strategies/auth/jwt/jwt.auth-strategy");
+>>>>>>> develop
 
 class AuthService {
 	_authStrategy;
@@ -24,6 +31,17 @@ class AuthService {
 	}
 }
 
+<<<<<<< HEAD
 module.exports = Object.freeze(
 	new AuthService(Object.freeze(new JwtAuthStrategy()))
 );
+=======
+module.exports = {
+	AuthService: Object.freeze(
+		new AuthService(
+			UserService,
+			Object.freeze(new JwtAuthStrategy())
+		)
+	)
+};
+>>>>>>> develop

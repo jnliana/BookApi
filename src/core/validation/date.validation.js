@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 const Types = require("../utility/types");
 const BaseValidation = require("./base.validation");
 const ValidationError = require("./validation.error");
+=======
+const { BaseValidation } = require("../base/base.validation");
+const { ValidationError } = require("../error/validation.error");
+>>>>>>> develop
 
 class DateValidation extends BaseValidation {
 	_type() {
@@ -33,4 +38,4 @@ class DateValidation extends BaseValidation {
 	}
 }
 
-module.exports = DateValidation;
+module.exports = { DateValidation }

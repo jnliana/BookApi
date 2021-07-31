@@ -1,4 +1,4 @@
-const id = require("../utility/id");
+const { makeId } = require("../utility/id");
 
 class Entity {
 	id;
@@ -6,10 +6,10 @@ class Entity {
 	modifiedAt;
 
 	constructor() {
-		this.id = id();
+		this.id = makeId();
 		this.createdAt = new Date();
 		this.modifiedAt = null;
 	}
 }
 
-module.exports = Entity;
+module.exports = { Entity };

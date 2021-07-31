@@ -1,8 +1,16 @@
+<<<<<<< HEAD
 const EntityService = require("../entity/entity.service");
 const UserValidator = require("./user.validator");
 const UserGateway = require("./user.gateway");
 const User = require("./user.entity");
 const MailService = require("../mail/mail.service");
+=======
+const { BaseService } = require("../base/base.service");
+const { UserValidator } = require("./user.validator");
+const { UserGateway } = require("./user.gateway");
+const { User } = require("./user.entity");
+const { MailService } = require("../mail/mail.service");
+>>>>>>> develop
 
 class UserService extends EntityService {
 	_mailService = MailService;
@@ -45,4 +53,4 @@ class UserService extends EntityService {
 	}
 }
 
-module.exports = Object.freeze(new UserService(UserGateway, UserValidator));
+module.exports = { UserService: Object.freeze(new UserService(UserGateway, UserValidator)) };

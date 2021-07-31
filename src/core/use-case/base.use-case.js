@@ -1,9 +1,9 @@
-const NotOverridenError = require("../error/not-overriden.error");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class BaseUseCase {
 	_request;
 
-	constructor(request) {
+	constructor (request) {
 		this._request = request;
 	}
 
@@ -12,4 +12,4 @@ class BaseUseCase {
 	}
 }
 
-module.exports = BaseUseCase;
+module.exports = { BaseUseCase };

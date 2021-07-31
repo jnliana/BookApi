@@ -1,12 +1,17 @@
+<<<<<<< HEAD
 const BaseUseCase = require("../../use-case/base.use-case");
 const UserService = require("../user.service");
+=======
+const { BaseUseCase } = require("../../base/base.use-case");
+const { UserService } = require("../user.service");
+>>>>>>> develop
 
 class ReissueActivationUseCase extends BaseUseCase {
 	_userService = UserService;
 
 	async execute() {
 		const { email } = this._requst;
-		
+
 		const user = await this._getUser(email);
 		await this._checkUserIsNotYetActivated(user);
 		await this._userService.issueActivation(user);
@@ -25,4 +30,4 @@ class ReissueActivationUseCase extends BaseUseCase {
 	}
 }
 
-module.exports = ReissueActivationUseCase;
+module.exports = { ReissueActivationUseCase };

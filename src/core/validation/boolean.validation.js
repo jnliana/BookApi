@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 const Types = require("../utility/types");
 const BaseValidation = require("./base.validation");
+=======
+const { BaseValidation } = require("../base/base.validation");
+>>>>>>> develop
 
 class BooleanValidation extends BaseValidation {
 	_type() {
@@ -9,4 +13,4 @@ class BooleanValidation extends BaseValidation {
 	_validate() { }
 }
 
-module.exports = BooleanValidation;
+module.exports = { BooleanValidation };

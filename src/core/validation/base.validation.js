@@ -1,5 +1,10 @@
+<<<<<<< HEAD:src/core/validation/base.validation.js
 const NotOverridenError = require("../error/not-overriden.error");
 const ValidationError = require("./validation.error");
+=======
+const { NotOverridenError } = require("../error/not-overriden.error");
+const { ValidationError } = require("../error/validation.error");
+>>>>>>> develop:src/core/base/base.validation.js
 
 class BaseValidation {
 	_DEFAULT_ATTRIBUTE_NAME = "Value";
@@ -72,4 +77,4 @@ class BaseValidation {
 	}
 }
 
-module.exports = BaseValidation;
+module.exports = { BaseValidation };

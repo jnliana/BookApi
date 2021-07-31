@@ -1,7 +1,14 @@
+<<<<<<< HEAD:src/core/use-case/librarian.use-case.js
 const AuthorizedUseCase = require("./authorized.use-case");
 const NotOverridenError = require("../error/not-overriden.error");
 const UserRoles = require("../user/user.roles");
 const AuthError = require("../auth/auth.error");
+=======
+const { AuthorizedUseCase } = require("./authorized.use-case");
+const { NotOverridenError } = require("../../../error/not-overriden.error");
+const { UserRoles } = require("../../../user/user.roles");
+const { AuthError } = require("../../auth.error");
+>>>>>>> develop:src/core/auth/use-cases/abstract/librarian.use-case.js
 
 class LibrarianUseCase extends AuthorizedUseCase {
 	async _isAuthorizedGuard() {
@@ -14,4 +21,4 @@ class LibrarianUseCase extends AuthorizedUseCase {
 	}
 }
 
-module.exports = LibrarianUseCase;
+module.exports = { LibrarianUseCase };

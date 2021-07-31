@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-const MailStrategy = require("../../../core/mail/mail.strategy");
+const { MailStrategy } = require("../../../core/mail/mail.strategy");
 
 class NodemailerMailStrategy extends MailStrategy {
 	_service;
@@ -8,24 +8,24 @@ class NodemailerMailStrategy extends MailStrategy {
 	_smtpPort;
 	_email;
 	_password;
-	
-	constructor({ service, smtpHost, smtpPort, email, password }) {
+
+	constructor ({ service, smtpHost, smtpPort, email, password }) {
 		super();
-		
+
 		this._service = service;
 		this._smtpHost = smtpHost;
 		this._smtpPort = smtpPort;
 		this._email = email;
 		this._password = password;
 	}
-	
+
 	async send(sendParameter) {
 		const transporter = this._makeTransporter();
 		const options = this._makeOptionsFromSendParameter(sendParameter);
-		
+
 		const result = await transporter.sendMail(options);
 		transporter.close();
-		
+
 		return result;
 	}
 
@@ -52,4 +52,4 @@ class NodemailerMailStrategy extends MailStrategy {
 	}
 }
 
-module.exports = NodemailerMailStrategy;
+module.exports = { NodemailerMailStrategy };

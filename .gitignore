@@ -1,3 +1,24 @@
+# logs
+log
+logs
+
+# build artifacts
+build
+dist
+out
+
+# deps
 node_modules
+
+# env
 .env
+
+# editors
+.vscode
+.dstore
+
+# data
 data
+
+# other tools
+jaeger

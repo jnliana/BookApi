@@ -1,5 +1,10 @@
+<<<<<<< HEAD
 const EntityValidator = require("../entity/entity.validator");
 const StringValidation = require("../validation/string.validation");
+=======
+const { BaseValidator } = require("../base/base.validator");
+const { StringValidation } = require("../validation/string.validation");
+>>>>>>> develop
 
 class BookValidator extends EntityValidator {
 	validate(book) {
@@ -21,4 +26,4 @@ class BookValidator extends EntityValidator {
 	}
 }
 
-module.exports = Object.freeze(new BookValidator());
+module.exports = { BookValidator: Object.freeze(new BookValidator()) };

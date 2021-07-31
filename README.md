@@ -1,5 +1,8 @@
 # Study application for improving skills and understanding in writing clean code
 ## Book Api
+
+### Note
+This is not up to date (31.07.2021).
 ### Basic idea
 This application is a tool for digitally managing and making use of a library. 
 As a `librarian` you can add, change and remove books.

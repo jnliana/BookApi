@@ -1,4 +1,4 @@
-const NotOverridenError = require("../error/not-overriden.error");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class EntityService {
 	_gateway;
@@ -31,4 +31,8 @@ class EntityService {
 	}
 }
 
+<<<<<<< HEAD:src/core/entity/entity.service.js
 module.exports = EntityService;
+=======
+module.exports = { BaseService };
+>>>>>>> develop:src/core/base/base.service.js

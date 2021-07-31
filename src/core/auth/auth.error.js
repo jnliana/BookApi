@@ -1,5 +1,15 @@
+<<<<<<< HEAD
 const BaseError = require("../error/base.error");
+=======
+const { BaseError } = require("../base/base.error");
+>>>>>>> develop
 
-class AuthError extends BaseError { }
+class AuthError extends BaseError { 
+	constructor(message) {
+		super(message);
 
-module.exports = AuthError;
+		this.name = "AuthError";
+	}
+}
+
+module.exports = { AuthError };

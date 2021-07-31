@@ -1,7 +1,14 @@
 const fs = require('fs');
+<<<<<<< HEAD:src/adapters/gateway-strategy/json/json.gateway-strategy.js
 const GatewayStrategy = require("../../../core/gateway/gateway.strategy");
 const JsonGatewayError = require('./json.gateway-error');
 const JsonGatewayInitializer = require('./json.gateway-initializer');
+=======
+const path = require('path');
+
+const { GatewayStrategy } = require("../../../core/gateway/gateway.strategy");
+const { JsonGatewayError } = require('./json.gateway-error');
+>>>>>>> develop:src/strategies/gateway/json/json.gateway-strategy.js
 
 class JsonGatewayStrategy extends GatewayStrategy {
 	_file;
@@ -72,4 +79,4 @@ class JsonGatewayStrategy extends GatewayStrategy {
 	}
 }
 
-module.exports = JsonGatewayStrategy;
+module.exports = { JsonGatewayStrategy };

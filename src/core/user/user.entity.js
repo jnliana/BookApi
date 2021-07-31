@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 const Entity = require("../entity/base.entity");
 const { hash, compareHash } = require("../utility/hash");
 const token = require("../utility/token");
+=======
+const { Entity } = require("../base/base.entity");
+const { hash, compare } = require("../utility/hash");
+const { makeToken } = require("../utility/token");
+>>>>>>> develop
 
 class User extends Entity {
 	firstName;
@@ -18,7 +24,9 @@ class User extends Entity {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
-		this.passwordHash = hash(password);
+		
+		if (password) this.passwordHash = hash(password);
+		
 		this.role = role;
 		this.activation = {
 			issuedAt: null,
@@ -34,7 +42,7 @@ class User extends Entity {
 	}
 
 	checkPassword(plain) {
-		return compareHash(plain, this.passwordHash);
+		return compare(this.passwordHash, plain);
 	}
 
 	setPassword(password) {
@@ -47,7 +55,7 @@ class User extends Entity {
 	}
 
 	issueActivation() {
-		this.activation.token = token();
+		this.activation.token = makeToken();
 		this.activation.issuedAt = new Date();
 		this.activation.completed = false;
 		this.activation.completedAt = null;
@@ -67,4 +75,4 @@ class User extends Entity {
 	}
 }
 
-module.exports = User;
+module.exports = { User };

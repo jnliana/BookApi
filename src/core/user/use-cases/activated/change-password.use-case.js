@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/core/user/use-cases/activated/change-password.use-case.js
 const ActivatedUseCase = require("../../../use-case/activated.use-case");
 const UseCaseError = require("../../use-case/use-case.error");
 const UserService = require("../../user.service");
+=======
+const { ActivatedUseCase } = require("../../auth/use-cases/abstract/activated.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { UserService } = require("../user.service");
+>>>>>>> develop:src/core/user/use-cases/change-password.use-case.js
 
 class ChangePasswordError extends UseCaseError { }
 
@@ -32,4 +38,4 @@ class ChangePasswordUseCase extends ActivatedUseCase {
 	}
 }
 
-module.exports = ChangePasswordUseCase;
+module.exports = { ChangePasswordUseCase }

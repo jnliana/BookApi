@@ -1,4 +1,4 @@
-const NotOverridenError = require("../error/not-overriden.error");
+const { NotOverridenError } = require("../error/not-overriden.error");
 
 class GatewayStrategy {
 	constructor(initializer) {
@@ -30,4 +30,4 @@ class GatewayStrategy {
 	}
 }
 
-module.exports = GatewayStrategy;
+module.exports = { GatewayStrategy };

@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/core/user/use-cases/activated/delete-account.use-case.js
 const ActivatedUseCase = require("../../../use-case/activated.use-case");
 const UseCaseError = require("../../../use-case/use-case.error");
 const UserService = require("../../user.service");
+=======
+const { ActivatedUseCase } = require("../../auth/use-cases/abstract/activated.use-case");
+const { UserService } = require("../user.service");
+const { UseCaseError } = require("../../error/use-case.error");
+>>>>>>> develop:src/core/user/use-cases/delete-account.use-case.js
 
 class DeleteAccountError extends UseCaseError { }
 
@@ -20,4 +26,4 @@ class DeleteAccountUseCase extends ActivatedUseCase {
 	}
 }
 
-module.exports = DeleteAccountUseCase;
+module.exports = { DeleteAccountUseCase };

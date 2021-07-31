@@ -1,6 +1,12 @@
+<<<<<<< HEAD:src/core/book/use-cases/librarian/change-book.use-case.js
 const LibrarianUseCase = require("../../../use-case/librarian.use-case");
 const UseCaseError = require("../../../use-case/use-case.error");
 const BookService = require("../../book.service");
+=======
+const { LibrarianUseCase } = require("../../auth/use-cases/abstract/librarian.use-case");
+const { UseCaseError } = require("../../error/use-case.error");
+const { BookService } = require("../book.service");
+>>>>>>> develop:src/core/book/use-cases/change-book.use-case.js
 
 class ChangeBookError extends UseCaseError { }
 
@@ -31,4 +37,4 @@ class ChangeBookUseCase extends LibrarianUseCase {
 	}
 }
 
-module.exports = ChangeBookUseCase;
+module.exports = { ChangeBookUseCase };

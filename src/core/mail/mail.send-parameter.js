@@ -5,7 +5,7 @@ class MailSendParameter {
 	plainText;
 	cc;
 
-	constructor(to, subject, htmlContent, plainText, cc = []) {
+	constructor (to, subject, htmlContent, plainText, cc = []) {
 		this.to = to;
 		this.subject = subject;
 		this.htmlContent = htmlContent;
@@ -14,4 +14,4 @@ class MailSendParameter {
 	}
 }
 
-module.exports = MailSendParameter;
+module.exports = { MailSendParameter };

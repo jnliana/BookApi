@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 const BaseValidation = require("./base.validation");
 const ValidationError = require("./validation.error");
 const Types = require("../utility/types");
+=======
+const { BaseValidation } = require("../base/base.validation");
+const { ValidationError } = require("../error/validation.error");
+>>>>>>> develop
 
 class NumberValidation extends BaseValidation {
 	_type() {
@@ -40,14 +45,14 @@ class NumberValidation extends BaseValidation {
 	}
 
 	_validateNotInfinity() {
-		if(!isFinite(this._value))
+		if (!isFinite(this._value))
 			throw new ValidationError(`${this._options.attributeName} is infinity.`)
 	}
 
 	_validateNotNaN() {
-		if(isNaN(this._value))
+		if (isNaN(this._value))
 			throw new ValidationError(`${this._options.attributeName} is NaN.`)
 	}
 }
 
-module.exports = NumberValidation;
+module.exports = { NumberValidation };

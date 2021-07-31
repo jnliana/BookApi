@@ -1,3 +1,22 @@
-const uuid = require('uuid');
+const uuid = require("uuid");
+const nanoid = require("nanoid");
 
-module.exports = () => uuid.v4(); 
+const { Config } = require("../config");
+
+function makeId() {
+	return uuid.v4();
+}
+
+function makeShortId() {
+	return nanoid.nanoid(Config.shortIdLength);
+}
+
+function isId(value) {
+	return uuid.validate(String(value));
+}
+
+module.exports = {
+	makeId,
+	makeShortId,
+	isId
+};
